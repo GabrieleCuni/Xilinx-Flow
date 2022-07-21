@@ -1,0 +1,40 @@
+RICORDA:
+	hai provato a installare la versione di Vitis Platform 2020.1 che sarebbe quella di hotdesking ma non parte sul tuo pc
+	hai provato con la versione 2020.2 e parte su pc ma non funziona la DPU-PYNQ
+	ho instalalto la versione 2021.2 sul server in dir ~/tools/Xilinx ma non avendo i privilegi di amministrazione non so se veramente è andata a buon fine dato che la doc dice infinite volte che servono i privilegi da admin
+
+Chiedere se sa qualcosa della mancanza dei file .deb di xilinx runtime XRT su: RISOLTO COMPILANDO IL .deb  DA SOURCE
+	https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-platforms/archive-vitis-embedded.html
+
+Analizzare questa Q&A sul sito xilinx insieme: RISILTO CHIEDENDO DIRETTAMENTE A XILINX SUPPORT
+	https://support.xilinx.com/s/question/0D52E00006hpOrKSAU/xilinx-runtime-20202-rpm-and-deb-files?language=en_US
+
+Mostrare che per le schede alveo ci sono i file .deb delle XRT ma non li trovo per zcu104: RISOLTO COME SOPRA
+	https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/alveo.html
+
+Mostrare la guida che ho seguito io per instalalre le cose, ricordati anche il file dove hai salvato tutti i passaggi: QUESTA NON ESITE PIÙ?
+	https://docs.xilinx.com/r/2020.2-English/ug1393-vitis-application-acceleration/Installing-Embedded-Platforms?tocId=SdG_xryv_taFZ6fx7lgqpw
+
+Mostrare che la  Release v1.3.2 è quella giusta per PYNQ 2.6.0, ma chiedere se anche l'ultima versione va bene, chiedere se fare git checkout fsfsrdfd è un buon modo per tornare ad una vecchia versione
+	https://github.com/Xilinx/DPU-PYNQ/releases
+
+Mostrare che la DPU-PYNQ non funziona anche se tutto sembra installato correttamente, magari sa cosè quell'errore
+
+Chiedere come installare su server o se ci sono già i software Xilinx Platform and XRT
+
+Se DPU-PYNQ non funziona che faccio? Cambiamo versione?
+
+Se vengo a Torino risolvo i problemi dei privilegi di admin? Oppure come li risolvo? 
+
+
+
+
+
+Obiettivo:
+
+elimino tutto quello che ho installato
+scarico vivado 2019.2 -> source vivado
+scarico DPU-PYNQ 1.3.2 e Vitis-ai-git 1.3.2
+
+
+

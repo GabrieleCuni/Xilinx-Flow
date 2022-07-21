@@ -1,0 +1,43 @@
+(vitis-ai-tensorflow) Vitis-AI /workspace/ThesisData > python VitisAI_quantize_and_compile_no_zoo_model_flow.py -c -d B512 -m mobilenet_v1_1.0_160
+************************************
+INPUT PARAMETERS:
+        model: mobilenet_v1_1.0_160
+        DPU: B512
+        Output Layer: MobilenetV1/Predictions/Reshape
+        Execute quantization: False
+        Execute compilation: True
+************************************
+Op types used: 138 Const, 138 Identity, 27 FusedBatchNorm, 27 Relu6, 15 Conv2D, 13 DepthwiseConv2dNative, 2 Reshape, 1 AvgPool, 1 BiasAdd, 1 Placeholder, 1 Shape, 1 Softmax, 1 Squeeze
+
+Found 1 possible inputs: (name=input, type=float(1), shape=[?,160,160,3]) 
+Found 1 possible outputs: (name=MobilenetV1/Predictions/Reshape_1, op=Reshape) 
+
+[INFO] parse raw model     :100%|██████████████████████████| 122/122 [00:00<00:00, 8511.11it/s]              
+[INFO] infer shape (NHWC)  :100%|██████████████████████████| 97/97 [00:00<00:00, 14164.03it/s]               
+[INFO] infer shape (NHWC)  :100%|██████████████████████████| 97/97 [00:00<00:00, 10226.15it/s]               
+[INFO] generate xmodel     :100%|██████████████████████████| 97/97 [00:00<00:00, 1333.41it/s]                
+[UNILOG][INFO] The compiler log will be dumped at "/tmp/vitis-ai-user/log/xcompiler-20220718-135017-2515"
+[UNILOG][INFO] Compile mode: dpu
+[UNILOG][INFO] Debug mode: function
+[UNILOG][INFO] Target architecture: DPUCZDX8G_CUSTOMIZED
+[UNILOG][INFO] Graph name: quantize_eval_model, with op num: 209
+[UNILOG][INFO] Begin to compile...
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][Check Failed: if_support][/home/xbuild/conda-bld/xcompiler_1606385139459/work/src/pass/passes/GenInst/InstGenerator.imp:1881][XCOM_UNDEFINED_STATE][This behavior is undefined.] xcompiler tiling fail, but xcompiler's function mode only support single dilated conv
+*** Check failure stack trace: ***
+Aborted (core dumped)
+[INFO] Namespace(inputs_shape=None, layout='NHWC', model_files=['./vai_quant_models/mobilenet_v1_1.0_160/quantize_eval_model.pb'], model_type='tensorflow', out_filename='./vai_compiled_models/B512/mobilenet_v1_1.0_160_B512/mobilenet_v1_1.0_160_B512_org.xmodel', proto=None)
+[INFO] tensorflow model: vai_quant_models/mobilenet_v1_1.0_160/quantize_eval_model.pb
+[INFO] generate xmodel: /workspace/ThesisData/vai_compiled_models/B512/mobilenet_v1_1.0_160_B512/mobilenet_v1_1.0_160_B512_org.xmodel
+**************************************************
+* VITIS_AI Compilation - Xilinx Inc.
+**************************************************
+
+Script timing:
+        Inspecting frozen graph time: 4.18 s
+        Compiling time: 7.61 s

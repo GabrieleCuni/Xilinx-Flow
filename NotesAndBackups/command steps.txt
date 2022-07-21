@@ -1,0 +1,713 @@
+****************************************************************
+* Inizio istallazione Vitis Platform 2020.1 Come in HOTDESKING *
+****************************************************************
+
+sudo ./Xilinx_Unified_2020.1_0602_1208_Lin64.bin 
+[sudo] password for gabriele: 
+Verifying archive integrity... All good.
+Uncompressing Xilinx Installer...............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Exception in thread "SPLASH_LOAD_MESSAGE" java.lang.IllegalStateException: no splash screen available
+	at java.desktop/java.awt.SplashScreen.checkVisible(Unknown Source)
+	at java.desktop/java.awt.SplashScreen.getBounds(Unknown Source)
+	at java.desktop/java.awt.SplashScreen.getSize(Unknown Source)
+	at com.xilinx.installer.gui.H.run(Unknown Source)
+
+Non parte l'installer sul mio pc per via di questo errore
+Sarebbe meglio riuscire a installare questa versione perché poi è più comodo installare la XRT
+
+
+*********************************************
+* Inizio istallazione Vitis Platform 2020.2 *
+*********************************************
+
+chmod u+x Xilinx_Unified_2020.2_1118_1232_Lin64.bin
+
+sudo ./Xilinx_Unified_2020.2_1118_1232_Lin64.bin
+
+cd /tools/Xilinx/Vitis/2020.2/scripts/
+
+sudo ./installLibs.sh
+
+sudo cp ~/Desktop/InstallationRequiredFIlesForXilinx2020_2/xilinx_zcu104_base_202020_1.zip /opt/xilinx/platforms/
+
+sudo unzip xilinx_zcu104_base_202020_1.zip
+
+sudo rm xilinx_zcu104_base_202020_1.zip
+
+tar -xf xilinx-zynq-common-v2020.2.tar.gz
+
+./sdk.sh 
+[sudo] password for gabriele: 
+PetaLinux SDK installer version 2020.2
+======================================
+Enter target directory for SDK (default: /opt/petalinux/2020.2): 
+You are about to install the SDK to "/opt/petalinux/2020.2". Proceed [Y/n]? Y
+Extracting SDK....................................................................................................................................................done
+Setting it up...done
+SDK has been successfully set up and is ready to be used.
+Each time you wish to use the SDK in a new shell session, you need to source the environment setup script e.g.
+ $ . /opt/petalinux/2020.2/environment-setup-cortexa9t2hf-neon-xilinx-linux-gnueabi
+
+
+
+Setting Up the Environment to Run the Vitis Software Platform
+
+To configure the environment to run the Vitis software platform, run the following scripts in a command shell to set up the tools to run in that shell:
+
+#setup XILINX_VITIS and XILINX_VIVADO variables 
+source /tools/Xilinx/Vitis/2020.2/settings64.sh
+#setup XILINX_XRT
+source /opt/xilinx/xrt/setup.sh
+
+output:
+XILINX_XRT      : /opt/xilinx/xrt
+PATH            : /opt/xilinx/xrt/bin:/tools/Xilinx/DocNav:/tools/Xilinx/Vitis_HLS/2020.2/bin:/tools/Xilinx/Vivado/2020.2/bin:/tools/Xilinx/Vitis/2020.2/bin:/tools/Xilinx/Vitis/2020.2/gnu/microblaze/lin/bin:/tools/Xilinx/Vitis/2020.2/gnu/arm/lin/bin:/tools/Xilinx/Vitis/2020.2/gnu/microblaze/linux_toolchain/lin64_le/bin:/tools/Xilinx/Vitis/2020.2/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin:/tools/Xilinx/Vitis/2020.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin:/tools/Xilinx/Vitis/2020.2/gnu/aarch64/lin/aarch64-linux/bin:/tools/Xilinx/Vitis/2020.2/gnu/aarch64/lin/aarch64-none/bin:/tools/Xilinx/Vitis/2020.2/gnu/armr5/lin/gcc-arm-none-eabi/bin:/tools/Xilinx/Vitis/2020.2/tps/lnx64/cmake-3.3.2/bin:/tools/Xilinx/Vitis/2020.2/aietools/bin:/home/gabriele/.local/bin:/home/gabriele/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/gabriele/opt/Treetagger/cmd:/home/gabriele/opt/Treetagger/bin
+LD_LIBRARY_PATH : /opt/xilinx/xrt/lib:
+PYTHONPATH     : /opt/xilinx/xrt/python:
+
+
+
+export PLATFORM_REPO_PATHS=/opt/xilinx/platforms
+
+cd /home/gabriele/Desktop
+
+tar -xf DPU-PYNQ-1.3.2
+
+cd /home/gabriele/Desktop/DPU-PYNQ-1.3.2/boards/
+
+
+make BOARD=ZCU104
+
+cp -rf /home/gabriele/Desktop/DPU-PYNQ-1.3.2/boards/../vitis-ai-git/dsa/DPU-TRD/prj/Vitis/kernel_xml/dpu/kernel.xml /home/gabriele/Desktop/DPU-PYNQ-1.3.2/boards/ZCU104/kernel_xml/dpu/kernel.xml
+cp: cannot stat '/home/gabriele/Desktop/DPU-PYNQ-1.3.2/boards/../vitis-ai-git/dsa/DPU-TRD/prj/Vitis/kernel_xml/dpu/kernel.xml': No such file or directory
+Makefile:77: recipe for target '/home/gabriele/Desktop/DPU-PYNQ-1.3.2/boards/ZCU104/kernel_xml/dpu/kernel.xml' failed
+make: *** [/home/gabriele/Desktop/DPU-PYNQ-1.3.2/boards/ZCU104/kernel_xml/dpu/kernel.xml] Error 1
+
+***************************************************************************************
+* NON HA FUNZIONATO !!! Allora tento clonando diversamente il repository per DPU-PYNQ *
+***************************************************************************************
+
+git clone --recursive --shallow-submodules https://github.com/Xilinx/DPU-PYNQ.git
+
+git checkout a9e955e8421186f81f02bc04f472f0009a85c94a
+
+
+gabriele@gabriele-PC:~/Desktop/DPU-PYNQ/boards$ make BOARD=ZCU104
+BOARD: ZCU104
+VITIS_PLATFORM: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm
+bash check_env.sh
+cp -rf /home/gabriele/Desktop/DPU-PYNQ/boards/../vitis-ai-git/dsa/DPU-TRD/prj/Vitis/kernel_xml/dpu/kernel.xml /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/kernel_xml/dpu/kernel.xml
+cp -f /home/gabriele/Desktop/DPU-PYNQ/boards/../vitis-ai-git/dsa/DPU-TRD/prj/Vitis/scripts/package_dpu_kernel.tcl /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/scripts/package_dpu_kernel.tcl
+sed -i 's/set path_to_hdl "..\/..\/dpu_ip"/set path_to_hdl "..\/..\/vitis-ai-git\/dsa\/DPU-TRD\/dpu_ip"/' /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/scripts/package_dpu_kernel.tcl
+cp -f /home/gabriele/Desktop/DPU-PYNQ/boards/../vitis-ai-git/dsa/DPU-TRD/prj/Vitis/scripts/gen_dpu_xo.tcl /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/scripts/gen_dpu_xo.tcl
+cd /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104 ;\
+/tools/Xilinx/Vivado/2020.2/bin/vivado -mode batch -source scripts/gen_dpu_xo.tcl \
+	-tclargs binary_container_1/dpu.xo DPUCZDX8G hw ZCU104
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source scripts/gen_dpu_xo.tcl
+# if { $::argc != 4 } {
+#     puts "ERROR: Program \"$::argv0\" requires 4 arguments!\n"
+#     puts "Usage: $::argv0 <xoname> <krnl_name> <target> <device>\n"
+#     exit
+# }
+# set xoname    [lindex $::argv 0]
+# set krnl_name [lindex $::argv 1]
+# set target    [lindex $::argv 2]
+# set device    [lindex $::argv 3]
+# puts $xoname
+binary_container_1/dpu.xo
+# set suffix "${krnl_name}_${target}_${device}"
+# if { [info exists ::env(DIR_PATH)] } {
+#     source -notrace $env(DIR_PRJ)/scripts/package_dpu_kernel.tcl
+# } else {
+#     source -notrace ./scripts/package_dpu_kernel.tcl
+# }
+couldn't read file "./scripts/bip_proc.tcl": no such file or directory
+    while executing
+"source -notrace ./scripts/bip_proc.tcl"
+    (file "./scripts/package_dpu_kernel.tcl" line 26)
+
+    while executing
+"source -notrace ./scripts/package_dpu_kernel.tcl"
+    invoked from within
+"if { [info exists ::env(DIR_PATH)] } {
+    source -notrace $env(DIR_PRJ)/scripts/package_dpu_kernel.tcl
+} else {
+    source -notrace ./scripts/package..."
+    (file "scripts/gen_dpu_xo.tcl" line 30)
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 21 18:22:50 2022...
+Makefile:108: recipe for target 'binary_container_1/dpu.xo' failed
+make: *** [binary_container_1/dpu.xo] Error 1
+
+
+
+
+*****************************************************************
+* Tentativo di instalallare la XRT 2020.2 da source code github *
+*****************************************************************************************************
+ATTENZIONE !!! se faccio source /tools/Xilinx/Vitis/2020.2/settings64.sh prima di build per settare la variabile XILINX_VITIS come richiesto dalla documentazione non riesco a compilare perché ho una versione di cmake troppo bassa dopo aver fatto source.
+Se non faccio source sembra che non crei una cosa che gli serve a detta della doc.
+******************************************************************************************************
+
+XRT-202020.2.8.743$ sudo src/runtime_src/tools/scripts/xrtdeps.sh
+
+XILINX_VITIS=/tools/Xilinx/Vitis/2020.2 OR export XILINX_VITIS=/tools/Xilinx/Vitis/2020.2
+echo $XILINX_VITIS
+
+cd build
+
+./build.sh
+
+Test project /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release
+    Start 1: xbmgmt
+1/5 Test #1: xbmgmt ...........................   Passed    0.00 sec
+    Start 2: xbutil
+2/5 Test #2: xbutil ...........................   Passed    0.00 sec
+    Start 3: xbutil2
+3/5 Test #3: xbutil2 ..........................   Passed    0.00 sec
+    Start 4: xbmgmt2
+4/5 Test #4: xbmgmt2 ..........................   Passed    0.00 sec
+    Start 5: xclbintest
+5/5 Test #5: xclbintest .......................   Passed    0.13 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   0.15 sec
+
+real	0m0,159s
+user	0m0,023s
+sys	0m0,138s
+
+
+CPack: Create package using DEB
+CPack: Install projects
+CPack: - Run preinstall target for: XRT
+CPack: - Install project: XRT
+CPack: -   Install component: aws
+CPack: -   Install component: azure
+CPack: -   Install component: container
+CPack: -   Install component: xrt
+CPack: Create package
+CPackDeb: - Generating dependency list
+CPackDeb: - Generating dependency list
+CPackDeb: - Generating dependency list
+CPackDeb: - Generating dependency list
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-aws.deb generated.
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-azure.deb generated.
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-container.deb generated.
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-xrt.deb generated.
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: XRT
+CPack: - Install project: XRT
+CPack: -   Install component: aws
+CPack: -   Install component: azure
+CPack: -   Install component: container
+CPack: -   Install component: xrt
+CPack: Create package
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-aws.tar.gz generated.
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-azure.tar.gz generated.
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-container.tar.gz generated.
+CPack: - package: /home/gabriele/Desktop/XRT-202020.2.8.743/build/Release/xrt_202020.2.8.0_18.04-amd64-xrt.tar.gz generated.
+
+real	0m22,039s
+user	0m17,919s
+sys	0m3,997s
+
+
+
+gabriele@gabriele-PC:~/Desktop/XRT-202020.2.8.743/build/Release$ sudo apt install --reinstall ./xrt_202020.2.8.0_18.04-amd64-xrt.deb
+
+
+Done.
+Cleanup is skipped for package upgrade/downgrade/re-install on Ubuntu/Debian
+Unpacking xrt (2.8.0) over (2.6.655) ...
+Setting up xrt (2.8.0) ...
+Unloading old XRT Linux kernel modules
+rmmod: ERROR: Module xocl is not currently loaded
+rmmod: ERROR: Module xclmgmt is not currently loaded
+Invoking DKMS common.postinst for xrt
+Loading new xrt-2.8.0 DKMS files...
+Building for 5.4.0-73-generic
+Building initial module for 5.4.0-73-generic
+Done.
+
+xocl:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/5.4.0-73-generic/updates/dkms/
+
+xclmgmt.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/5.4.0-73-generic/updates/dkms/
+
+depmod...
+
+DKMS: install completed.
+Finished DKMS common.postinst
+Loading new XRT Linux kernel modules
+Installing MSD / MPD daemons
+
+ATTENZIONE !!! In questo momento la XRT non è ben installata perché il firmware non è stato generato, ho chiesto spiegazioni su xilinx support
+
+
+con export XILINX_VITIS=/tools/Xilinx/Vitis/2020.2
+esce questo errore: (Allra provo a prendere la XRT con git clone e checkout)
+
+fatal: not a git repository (or any of the parent directories): .git
+/home/gabriele/Desktop/XRT-202020.2.8.743/src/runtime_src/ert/scheduler/scheduler.cpp: In function 'bool ert::cu_stat(ert::size_type)':
+<command-line>: error: unable to find numeric literal operator 'operator""x'
+/home/gabriele/Desktop/XRT-202020.2.8.743/src/runtime_src/ert/scheduler/scheduler.cpp:905:47: note: in expansion of macro 'ERT_VERSION'
+  905 |   write_reg(slot.slot_addr + (pkt_idx++ << 2),ERT_VERSION);
+      |                                               ^~~~~~~~~~~
+<command-line>: note: use '-fext-numeric-literals' to enable more built-in suffixes
+/home/gabriele/Desktop/XRT-202020.2.8.743/src/runtime_src/ert/scheduler/scheduler.cpp:905:47: note: in expansion of macro 'ERT_VERSION'
+  905 |   write_reg(slot.slot_addr + (pkt_idx++ << 2),ERT_VERSION);
+      |                                               ^~~~~~~~~~~
+/home/gabriele/Desktop/XRT-202020.2.8.743/src/runtime_src/ert/scheduler/scheduler.mk:23: recipe for target '/home/gabriele/Desktop/XRT-202020.2.8.743/build/Debug/runtime_src/ert/scheduler/legacy/scheduler.o' failed
+make[3]: *** [/home/gabriele/Desktop/XRT-202020.2.8.743/build/Debug/runtime_src/ert/scheduler/legacy/scheduler.o] Error 1
+runtime_src/ert/scheduler/CMakeFiles/scheduler.dir/build.make:64: recipe for target 'runtime_src/ert/scheduler/legacy/sched.bin' failed
+make[2]: *** [runtime_src/ert/scheduler/legacy/sched.bin] Error 2
+CMakeFiles/Makefile2:1183: recipe for target 'runtime_src/ert/scheduler/CMakeFiles/scheduler.dir/all' failed
+make[1]: *** [runtime_src/ert/scheduler/CMakeFiles/scheduler.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+
+
+*******************************************************************
+TEntativo con git clone per XRT e checkout version 2020.2
+***************************************************************
+
+
+git clone https://github.com/Xilinx/XRT
+git chechout 77d5484b5c4daa691a7f78235053fb036829b1e9      // serve per avere la versione 2020.2
+
+XRT$ sudo src/runtime_src/tools/scripts/xrtdeps.sh
+
+export XILINX_VITIS=/tools/Xilinx/Vitis/2020.2
+$XILINX_VITIS
+
+cd build
+./build.sh
+
+CPack: Create package using DEB
+CPack: Install projects
+CPack: - Run preinstall target for: XRT
+CPack: - Install project: XRT
+CPack: -   Install component: aws
+CPack: -   Install component: azure
+CPack: -   Install component: container
+CPack: -   Install component: xrt
+CPack: Create package
+CPackDeb: - Generating dependency list
+CPackDeb: - Generating dependency list
+CPackDeb: - Generating dependency list
+CPackDeb: - Generating dependency list
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-aws.deb generated.
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-azure.deb generated.
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-container.deb generated.
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-xrt.deb generated.
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: XRT
+CPack: - Install project: XRT
+CPack: -   Install component: aws
+CPack: -   Install component: azure
+CPack: -   Install component: container
+CPack: -   Install component: xrt
+CPack: Create package
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-aws.tar.gz generated.
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-azure.tar.gz generated.
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-container.tar.gz generated.
+CPack: - package: /home/gabriele/Desktop/XRT/build/Release/xrt_202020.2.8.0_18.04-amd64-xrt.tar.gz generated.
+
+real	0m23,437s
+user	0m19,100s
+sys	0m3,984s
+
+
+Sembra andata bene i files ci sono!!! ;)
+
+gabriele@gabriele-PC:~/Desktop/XRT/build/Release/opt/xilinx/xrt/share/fw$ ls -l
+total 76
+-rw-r--r-- 1 gabriele gabriele  3052 apr 22 13:23 mgmt.bin
+-rw-r--r-- 1 gabriele gabriele 13908 apr 22 13:23 sched.bin
+-rw-r--r-- 1 gabriele gabriele 13892 apr 22 13:23 sched_u50.bin
+-rw-r--r-- 1 gabriele gabriele 13988 apr 22 13:23 sched_v20.bin
+-rw-r--r-- 1 gabriele gabriele 21612 apr 22 13:23 sched_v30.bin
+
+
+
+cd build/Release
+make package
+
+cd ../Debug
+make package
+
+cd build
+./build.sh docs
+
+sudo apt install --reinstall ./xrt_202020.2.8.0_18.04-amd64-xrt.deb
+
+Cleanup is skipped for package upgrade/downgrade/re-install on Ubuntu/Debian
+Unpacking xrt (2.8.0) over (2.8.0) ...
+Setting up xrt (2.8.0) ...
+Unloading old XRT Linux kernel modules
+Invoking DKMS common.postinst for xrt
+Loading new xrt-2.8.0 DKMS files...
+Building for 5.4.0-73-generic
+Building initial module for 5.4.0-73-generic
+Done.
+
+xocl:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/5.4.0-73-generic/updates/dkms/
+
+xclmgmt.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/5.4.0-73-generic/updates/dkms/
+
+depmod...
+
+DKMS: install completed.
+Finished DKMS common.postinst
+Loading new XRT Linux kernel modules
+Installing MSD / MPD daemons
+
+***************************
+* Start DPU-PYNQ WORKFLOW *
+***************************
+
+source /tools/Xilinx/Vitis/2020.2/settings64.sh
+source /opt/xilinx/xrt/setup.sh
+
+make BOARD=ZCU104
+
+BOARD: ZCU104
+VITIS_PLATFORM: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm
+bash check_env.sh
+cd /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104 ;\
+/tools/Xilinx/Vivado/2020.2/bin/vivado -mode batch -source scripts/gen_dpu_xo.tcl \
+	-tclargs binary_container_1/dpu.xo DPUCZDX8G hw ZCU104
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source scripts/gen_dpu_xo.tcl
+# if { $::argc != 4 } {
+#     puts "ERROR: Program \"$::argv0\" requires 4 arguments!\n"
+#     puts "Usage: $::argv0 <xoname> <krnl_name> <target> <device>\n"
+#     exit
+# }
+# set xoname    [lindex $::argv 0]
+# set krnl_name [lindex $::argv 1]
+# set target    [lindex $::argv 2]
+# set device    [lindex $::argv 3]
+# puts $xoname
+binary_container_1/dpu.xo
+# set suffix "${krnl_name}_${target}_${device}"
+# if { [info exists ::env(DIR_PATH)] } {
+#     source -notrace $env(DIR_PRJ)/scripts/package_dpu_kernel.tcl
+# } else {
+#     source -notrace ./scripts/package_dpu_kernel.tcl
+# }
+couldn't read file "./scripts/bip_proc.tcl": no such file or directory
+    while executing
+"source -notrace ./scripts/bip_proc.tcl"
+    (file "./scripts/package_dpu_kernel.tcl" line 26)
+
+    while executing
+"source -notrace ./scripts/package_dpu_kernel.tcl"
+    invoked from within
+"if { [info exists ::env(DIR_PATH)] } {
+    source -notrace $env(DIR_PRJ)/scripts/package_dpu_kernel.tcl
+} else {
+    source -notrace ./scripts/package..."
+    (file "scripts/gen_dpu_xo.tcl" line 30)
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 28 16:37:16 2022...
+Makefile:108: recipe for target 'binary_container_1/dpu.xo' failed
+make: *** [binary_container_1/dpu.xo] Error 1
+
+
+ATTENZIONE adesso ho capito che il file che manca ./scripts/bip_proc.tcl si deve torvare in DPU-PYNQ/boards/ZCU104/scripts come tutti gli altri perché dal Makefile in boards:
+	${DIR_PRJ}/scripts/package_dpu_kernel.tcl\
+	${DIR_PRJ}/scripts/gen_dpu_xo.tcl\
+	${DIR_PRJ}/scripts/bip_proc.tcl\
+
+Ho capto che non si vede il contenuto della cartella DPU-PYNQ/boards/ZCU104/ perché viene creata durante il download del repository => deve essere un problema di quando faccio git clone DPU-PYNQ e poi checkout come il problema che non modifica direttamente vitis-ai 
+
+Quando il repository DPU-Pynq è appena stato scaricato nell sua ultima versione la cartella si presenta così:
+	gabriele@gabriele-PC:~/Desktop/DPU-PYNQ/boards/ZCU104$ ls -l
+	total 12
+	-rw-rw-r-- 1 gabriele gabriele 6272 apr 28 17:32 dpu_conf.vh
+	-rw-rw-r-- 1 gabriele gabriele  689 apr 28 17:32 prj_config
+
+Come si vede è uguale a come è su github, vuol dire che i file presenti vengono creati da vivado probabilmente e quindi è colpa sua se non vanno.
+Posso rovare con questa nuova versione modificando le script per targettare la mia versione di vitis
+
+provando con vitis platform 2020.2 ma la versione più recente di DPU-PYNQ 1.4.0 non funziona il processo perché si accorge che la versione di vitis non va bene però procede oltre quanto fatto prima e effettivamente crea lo script: "./scripts/bip_proc.tcl"
+
+ERRORE:
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source dpu.tcl -notrace
+
+ERROR: [BD::TCL 103-2041] This script was generated using Vivado <2021.1> and is being run in <2020.2> of Vivado. Please run the script in Vivado <2021.1> then open the design in Vivado <2020.2>. Upgrade the design by running "Tools => Report => Report IP Status...", then run write_bd_tcl to create an updated script.
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 28 17:46:24 2022...
+vivado -mode batch -source build_bitstream.tcl -notrace
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source build_bitstream.tcl -notrace
+ERROR: [Coretcl 2-27] Can't find specified project.
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 28 17:46:33 2022...
+Makefile:32: recipe for target 'bitstream' failed
+make[1]: *** [bitstream] Error 1
+make[1]: Leaving directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu'
+Makefile:41: recipe for target '/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm' failed
+make: *** [/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm] Error 2
+
+
+Secondo me rimane un errore di come si ottine la vecchia verisone di DPU-PYNQ con git clone
+
+
+git checkout --recurse-submodules b5c3b979603ba7c7a830e069a869a763236660ca
+
+
+*********************************************************************************************
+gabriele@gabriele-PC:~/Desktop/DPU-PYNQ$
+	git checkout a9e955e8421186f81f02bc04f472f0009a85c94a
+	git submodule update --recursive
+
+è andato molto più avanti ma si è bloccato qui:
+
+Run output will be captured here: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:34 ; elapsed = 00:00:36 . Memory (MB): peak = 2671.961 ; gain = 208.090 ; free physical = 794 ; free virtual = 9026
+[Thu Apr 28 18:42:12 2022] Waiting for impl_1 to finish...
+[Thu Apr 28 18:53:59 2022] impl_1 finished
+WARNING: [Vivado 12-8222] Failed run(s) : 'dpu_ps_e_0_0_synth_1'
+wait_on_run: Time (s): cpu = 00:00:02 ; elapsed = 00:11:46 . Memory (MB): peak = 2671.961 ; gain = 0.000 ; free physical = 2775 ; free virtual = 4323
+INFO: [Vivado 12-4895] Creating Hardware Platform: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu.xsa ...
+INFO: [Project 1-655] Project does not have Board Part set. Board related data may be missing or incomplete in the generated Hardware Platform.
+WARNING: [Project 1-646] Board name, vendor and part not set in Hardware Platform.
+WARNING: [Project 1-645] Board images not set in Hardware Platform.
+INFO: [Hsi 55-2053] elapsed time for repository (/tools/Xilinx/Vivado/2020.2/data/embeddedsw) loading 0 seconds
+WARNING: [BD 41-2589] Platform should have atleast one axi memory mapped master interface. Enable a master AXI interface as platform AXI_PORT.
+INFO: [Project 1-1042] Successfully generated hpfm file
+write_project_tcl: Time (s): cpu = 00:01:21 ; elapsed = 00:01:02 . Memory (MB): peak = 2719.996 ; gain = 48.035 ; free physical = 4095 ; free virtual = 6262
+INFO: [Vivado 12-12469] The Hardware Platform can be used for Hardware and Hardware Emulation
+INFO: [Vivado 12-4896] Successfully created Hardware Platform: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu.xsa
+write_hw_platform: Time (s): cpu = 00:01:46 ; elapsed = 00:01:29 . Memory (MB): peak = 2719.996 ; gain = 48.035 ; free physical = 5987 ; free virtual = 8204
+INFO: [Vivado 12-12082] Found metadata file: xsa.json
+INFO: [Vivado 12-6078] Validating platform properties...
+INFO: [Vivado 12-6079] Validating unified platform...
+INFO: [Vivado 12-6073] Validating 'pre_synth' platform state...
+INFO: [Vivado 12-6077] Validating platform files...
+INFO: [Vivado 12-6066] Finished running validate_hw_platform for file: './dpu.xsa'
+error copying "./dpu/dpu.runs/impl_1/dpu_wrapper.bit": no such file or directory
+    while executing
+"file copy -force ./${overlay_name}/${overlay_name}.runs/impl_1/${overlay_name}_wrapper.bit ${overlay_name}.bit"
+    (file "build_bitstream.tcl" line 29)
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 28 18:55:28 2022...
+Makefile:31: recipe for target 'bitstream' failed
+make[1]: *** [bitstream] Error 1
+make[1]: Leaving directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu'
+Makefile:45: recipe for target '/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm' failed
+make: *** [/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm] Error 2
+
+
+
+
+
+
+
+
+****************************************************************
+* Tentativo di far funzionare la DPU-PYNQ *
+****************************************************************
+
+git clone --recursive --shallow-submodules https://github.com/Xilinx/DPU-PYNQ.git
+git checkout a9e955e8421186f81f02bc04f472f0009a85c94a
+
+git submodule update --init --recursive -> older git version that does not have the flag in the checkout
+git submodule update --recursive -> consigliano di usare quello con --init
+
+
+Newer Git versions (Git >= 2.13) simplify all this by adding the --recurse-submodules flag to the git checkout command, which takes care of placing the submodules in the right state for the branch we are switching to.
+
+git checkout --recurse-submodules a9e955e8421186f81f02bc04f472f0009a85c94a -> DPU-PYNQ version 1.3.2 -> QUesto metodo non funziona
+
+
+
+****************************************************
+* Tentativo riuscito di far funzionare la DPU-PYNQ *
+****************************************************
+
+git clone --recursive --shallow-submodules https://github.com/Xilinx/DPU-PYNQ.git
+git checkout a9e955e8421186f81f02bc04f472f0009a85c94a
+git submodule update --init --recursive
+
+source /tools/Xilinx/Vitis/2020.2/settings64.sh
+source /opt/xilinx/xrt/setup.sh
+
+cd DPU-PYNQ/board
+
+make BOARD=ZCU104
+
+Questo procedimento è stato un successo!!! i tre file sono stati creati e si trovano in: gabriele@gabriele-PC:~/DPU-PYNQ/boards/ZCU104$
+
+*******************************************************************
+* Adesso bisogna ottenre vitis ai funzionante nella cartella host *
+*******************************************************************
+
+Procedo con la preparazione di vitis ai cpu
+
+cd DPU-PYNQ/vitis-ai-git
+docker pull xilinx/vitis-ai:1.3.411 -> ATTENZIONE NON ERA NECESARIO e questo comando potrebbe aver cambiato vitis ai
+
+cd DPU-PYNQ/host
+
+cp -rf ../vitis-ai-git/docker_run.sh .
+
+mkdir -p ./setup/docker/docker/ 
+
+cp -rf ../vitis-ai-git/setup/docker/docker/PROMPT.txt ./setup/docker/docker/
+
+./docker_run.sh xilinx/vitis-ai-cpu:1.3.411
+
+oppure per la gpu
+
+./docker_run.sh xilinx/vitis-ai:1.3.411
+
+ADESSO L'AMBIENTE VITIS AI SEMBRA PRONTO
+
+
+***************************************************************************************************
+* Obiettivo:
+* 	entro martedì -> far funzionare mobilenet_v1_1.0 0.25 ecc ecc e _v2
+* 	lettura paper per capire che campgna di esperimenti vuoi fare -> Motivazioni e Contributi per 	 *  capire se sono utili per la mia tesi
+****************************************************************************************************
+
+
+*************************************************************
+* Generazioni modelli di reti DPU con Vitis AI versione 1.3 *
+*************************************************************
+
+IL nome giusto della rete va preso da: https://github.com/Xilinx/Vitis-AI/tree/v1.3/models/AI-Model-Zoo/model-list
+
+./compile.sh ZCU104 tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3
+
+--2022-05-12 08:39:45--  https://www.xilinx.com/bin/public/openDownload?filename=tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip
+Resolving www.xilinx.com (www.xilinx.com)... 104.111.45.121
+Connecting to www.xilinx.com (www.xilinx.com)|104.111.45.121|:443... connected.
+HTTP request sent, awaiting response... 302 Moved Temporarily
+Location: https://xilinx-ax-dl.entitlenow.com/dl/ul/2020/12/11/R210413425/tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip?hash=OY3TAqHihHEUNGq6-IUhKg&expires=1652387986&filename=tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip [following]
+--2022-05-12 08:39:46--  https://xilinx-ax-dl.entitlenow.com/dl/ul/2020/12/11/R210413425/tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip?hash=OY3TAqHihHEUNGq6-IUhKg&expires=1652387986&filename=tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip
+Resolving xilinx-ax-dl.entitlenow.com (xilinx-ax-dl.entitlenow.com)... 2.20.204.65
+Connecting to xilinx-ax-dl.entitlenow.com (xilinx-ax-dl.entitlenow.com)|2.20.204.65|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4094081 (3.9M) [application/zip]
+Saving to: ‘tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip’
+
+tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip     100%[=====================================================================================================================>]   3.90M  2.44MB/s    in 1.6s    
+
+2022-05-12 08:39:50 (2.44 MB/s) - ‘tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip’ saved [4094081/4094081]
+
+Archive:  tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3.zip
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/gen_data/
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/gen_data/gen_data.py  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/gen_data/get_dataset.sh  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/gen_data/imagenet_class_index.json  
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/quantize/
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/quantize/config.ini  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/quantize/evaluate_quantize_model.sh  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/quantize/input_fn.py  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/quantize/quantize.sh  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/quantize/readme.md  
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/test/
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/test/eval_tf_classification_models_alone.py  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/code/test/run_eval_pb.sh  
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/data/
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/data/calib_list.txt  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/data/demo_list.txt  
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/float/
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/float/mobilenet_v1_0.25_128.pb  
+   creating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/quantized/
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/quantized/deploy_model.pb  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/quantized/quantize_eval_model.pb  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/readme.md  
+  inflating: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/requirements.txt  
+**************************************************
+* VITIS_AI Compilation - Xilinx Inc.
+**************************************************
+[INFO] Namespace(inputs_shape=None, layout='NHWC', model_files=['tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/quantized/quantize_eval_model.pb'], model_type='tensorflow', out_filename='./tf_mobilenetv1_org.xmodel', proto=None)
+[INFO] tensorflow model: tf_mobilenetv1_0.25_imagenet_128_128_27M_1.3/quantized/quantize_eval_model.pb
+[INFO] parse raw model     :100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 122/122 [00:00<00:00, 6309.56it/s]              
+[INFO] infer shape (NHWC)  :100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 96/96 [00:00<00:00, 18945.71it/s]               
+[INFO] infer shape (NHWC)  :100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 96/96 [00:00<00:00, 26401.76it/s]               
+[INFO] generate xmodel     :100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 96/96 [00:00<00:00, 4242.74it/s]                
+[INFO] generate xmodel: /workspace/ZCU104_tf_mobilenetv1_build/tf_mobilenetv1_org.xmodel
+[UNILOG][INFO] The compiler log will be dumped at "/tmp/vitis-ai-user/log/xcompiler-20220512-083953-207"
+[UNILOG][INFO] Target architecture: DPUCZDX8G_ISA0_B4096_MAX_BG2
+[UNILOG][INFO] Compile mode: dpu
+[UNILOG][INFO] Debug mode: function
+[UNILOG][INFO] Target architecture: DPUCZDX8G_ISA0_B4096_MAX_BG2
+[UNILOG][INFO] Graph name: quantize_eval_model, with op num: 208
+[UNILOG][INFO] Begin to compile...
+[UNILOG][INFO] Total device subgraph number 3, DPU subgraph number 1
+[UNILOG][INFO] Compile done.
+[UNILOG][INFO] The meta json is saved to "/workspace/ZCU104_tf_mobilenetv1_build/./meta.json"
+[UNILOG][INFO] The compiled xmodel is saved to "/workspace/ZCU104_tf_mobilenetv1_build/./tf_mobilenetv1.xmodel"
+[UNILOG][INFO] The compiled xmodel's md5sum is 464b747354a4bdc470eb32d9773f369d, and been saved to "/workspace/ZCU104_tf_mobilenetv1_build/./md5sum.txt"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

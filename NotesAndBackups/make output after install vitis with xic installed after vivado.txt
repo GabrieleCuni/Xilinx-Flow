@@ -1,0 +1,1163 @@
+gabriele@gabriele-PC:~/Desktop/DPU-PYNQ/boards$ make BOARD=ZCU104
+BOARD: ZCU104
+VITIS_PLATFORM: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm
+bash check_env.sh
+cd /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104 ;\
+/tools/Xilinx/Vivado/2020.2/bin/vivado -mode batch -source scripts/gen_dpu_xo.tcl \
+	-tclargs binary_container_1/dpu.xo DPUCZDX8G hw ZCU104
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source scripts/gen_dpu_xo.tcl
+# if { $::argc != 4 } {
+#     puts "ERROR: Program \"$::argv0\" requires 4 arguments!\n"
+#     puts "Usage: $::argv0 <xoname> <krnl_name> <target> <device>\n"
+#     exit
+# }
+# set xoname    [lindex $::argv 0]
+# set krnl_name [lindex $::argv 1]
+# set target    [lindex $::argv 2]
+# set device    [lindex $::argv 3]
+# puts $xoname
+binary_container_1/dpu.xo
+# set suffix "${krnl_name}_${target}_${device}"
+# if { [info exists ::env(DIR_PATH)] } {
+#     source -notrace $env(DIR_PRJ)/scripts/package_dpu_kernel.tcl
+# } else {
+#     source -notrace ./scripts/package_dpu_kernel.tcl
+# }
+update_compile_order: Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 2386.824 ; gain = 8.000 ; free physical = 7647 ; free virtual = 12061
+update_compile_order: Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 2387.168 ; gain = 0.344 ; free physical = 7634 ; free virtual = 12057
+INFO: [IP_Flow 19-5654] Module 'DPUCZDX8G' uses SystemVerilog sources with a Verilog top file. These SystemVerilog files will not be analysed by the packager.
+INFO: [IP_Flow 19-1842] HDL Parser: Found include file "src/arch_def.vh" from the top-level HDL file.
+INFO: [IP_Flow 19-1842] HDL Parser: Found include file "/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu_conf.vh" from the top-level HDL file.
+INFO: [IP_Flow 19-1841] HDL Parser: Add include file "/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu_conf.vh" to file group xilinx_anylanguagesynthesis.
+INFO: [IP_Flow 19-1841] HDL Parser: Add include file "/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu_conf.vh" to file group xilinx_anylanguagebehavioralsimulation.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2020.2/data/ip'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_clk_2' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_clk_2' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_rst_n_2' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_rst_n_2' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXI_GP0' of definition 'xilinx.com:interface:aximm:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXI_HP0' of definition 'xilinx.com:interface:aximm:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXI_HP2' of definition 'xilinx.com:interface:aximm:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_CONTROL' of definition 'xilinx.com:interface:aximm:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'interrupt' of definition 'xilinx.com:signal:interrupt:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'interrupt': Added interface parameter 'SENSITIVITY' with value 'LEVEL_HIGH'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'M_AXI_GP0'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'ap_clk_2': Added interface parameter 'ASSOCIATED_RESET' with value 'ap_rst_n_2'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'FREQ_HZ' with value '300000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'ap_clk_2': Added interface parameter 'FREQ_HZ' with value '600000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'ap_rst_n_2': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-7067] Note that bus interface 'aclk' has a fixed FREQ_HZ of '300000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-7067] Note that bus interface 'ap_clk_2' has a fixed FREQ_HZ of '600000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+WARNING: [IP_Flow 19-5661] Bus Interface 'ap_clk_2' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-3157] Bus Interface 'ap_rst_n_2': Bus parameter POLARITY is ACTIVE_LOW but port 'ap_rst_n_2' is not *resetn - please double check the POLARITY setting.
+WARNING: [IP_Flow 19-731] File Group 'xilinx_anylanguagesynthesis (Synthesis)': "/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu_conf.vh" file path is not relative to the IP root directory.
+WARNING: [IP_Flow 19-4816] The Synthesis file group has two include files that have the same base name. It is not guaranteed which of these two files will be picked up during synthesis/simulation:   src/dpu_conf.vh
+  /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu_conf.vh
+WARNING: [IP_Flow 19-991] Unrecognized or unsupported file 'src/fingerprint_json.ttcl' found in file group 'Synthesis'.
+Resolution: Remove the file from the specified file group.
+WARNING: [IP_Flow 19-731] File Group 'xilinx_anylanguagebehavioralsimulation (Simulation)': "/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu_conf.vh" file path is not relative to the IP root directory.
+WARNING: [IP_Flow 19-4816] The Simulation file group has two include files that have the same base name. It is not guaranteed which of these two files will be picked up during synthesis/simulation:   src/dpu_conf.vh
+  /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu_conf.vh
+WARNING: [IP_Flow 19-991] Unrecognized or unsupported file 'src/fingerprint_json.ttcl' found in file group 'Simulation'.
+Resolution: Remove the file from the specified file group.
+INFO: [IP_Flow 19-2181] Payment Required is not set for this core.
+INFO: [IP_Flow 19-2187] The Product Guide file is missing.
+ipx::package_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:11 . Memory (MB): peak = 2421.152 ; gain = 0.344 ; free physical = 7521 ; free virtual = 12035
+INFO: [IP_Flow 19-795] Syncing license key meta-data
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2020.2/data/ip'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_clk_2' of definition 'xilinx.com:signal:clock:1.0' (from TCL Argument).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_rst_n_2' of definition 'xilinx.com:signal:reset:1.0' (from TCL Argument).
+# if {[file exists "${xoname}"]} {
+#     file delete -force "${xoname}"
+# }
+# if { [info exists ::env(DIR_PATH)] } {
+#     package_xo -xo_path ${xoname} -kernel_name ${krnl_name} -ip_directory ./packaged_kernel_${suffix} -kernel_xml $env(DIR_PRJ)/kernel_xml/dpu/kernel.xml
+# } else {
+#     package_xo -xo_path ${xoname} -kernel_name ${krnl_name} -ip_directory ./packaged_kernel_${suffix} -kernel_xml ./kernel_xml/dpu/kernel.xml
+# }
+WARNING: [Vivado 12-4404] The CPU emulation flow in v++ is only supported when using a packaged XO file that contains C-model files, none were found.
+WARNING: [Vivado 12-7038] The bus parameter 'aclk.FREQ_HZ' has been detected in the kernel IP 'DPUCZDX8G'. This may cause validation errors in v++ if a target platform has a different default kernel clock frequency. If validation errors do occur in v++, please edit and re-generate the kernel IP 'DPUCZDX8G' to remove the bus parameter 'aclk.FREQ_HZ'
+WARNING: [Vivado 12-7038] The bus parameter 'ap_clk_2.FREQ_HZ' has been detected in the kernel IP 'DPUCZDX8G'. This may cause validation errors in v++ if a target platform has a different default kernel clock frequency. If validation errors do occur in v++, please edit and re-generate the kernel IP 'DPUCZDX8G' to remove the bus parameter 'ap_clk_2.FREQ_HZ'
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 29 17:42:18 2022...
+Preparing Vitis platform for ZCU104...
+cd vitis_platform/dpu && make clean && make BOARD=ZCU104
+make[1]: Entering directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu'
+rm -rf dpu *.jou *.log NA
+make[1]: Leaving directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu'
+make[1]: Entering directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu'
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source dpu.tcl -notrace
+INFO: [BD::TCL 103-2003] Currently there is no design <dpu> in project, so creating one...
+Wrote  : </home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.srcs/sources_1/bd/dpu/dpu.bd> 
+INFO: [BD::TCL 103-2004] Making design <dpu> as current_bd_design.
+INFO: [BD::TCL 103-2005] Currently the variable <design_name> is equal to "dpu".
+INFO: [BD::TCL 103-2011] Checking if the following IPs exist in the project's IP catalog:  
+xilinx.com:ip:axi_vip:1.1 xilinx.com:ip:clk_wiz:6.0 xilinx.com:ip:zynq_ultra_ps_e:3.3 xilinx.com:ip:proc_sys_reset:5.0 xilinx.com:ip:xlconcat:2.1 xilinx.com:ip:xlconstant:1.1  .
+create_bd_cell: Time (s): cpu = 00:00:26 ; elapsed = 00:00:40 . Memory (MB): peak = 2908.816 ; gain = 445.984 ; free physical = 6263 ; free virtual = 10966
+INFO: [PSU-0] Address Range of DDR (0x7ff00000 to 0x7fffffff) is reserved by PMU for internal purpose.
+INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change 
+Slave segment '/ps_e_0/SAXIGP0/HPC0_DDR_LOW' is being assigned into address space '/axi_vip_0/Master_AXI' at <0x0000_0000 [ 2G ]>.
+Slave segment '/axi_vip_1/S_AXI/Reg' is being assigned into address space '/ps_e_0/Data' at <0xA000_0000 [ 64K ]>.
+Slave segment '/axi_vip_2/S_AXI/Reg' is being assigned into address space '/ps_e_0/Data' at <0x8000_0000 [ 64K ]>.
+INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change 
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /ps_e_0/S_AXI_HPC0_FPD(1) and /interconnect_axifull/s00_couplers/auto_us/M_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /ps_e_0/S_AXI_HPC0_FPD(1) and /interconnect_axifull/s00_couplers/auto_us/M_AXI(0)
+Wrote  : </home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.srcs/sources_1/bd/dpu/dpu.bd> 
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 29 17:43:35 2022...
+vivado -mode batch -source build_bitstream.tcl -notrace
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source build_bitstream.tcl -notrace
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2396.664 ; gain = 4.016 ; free physical = 7289 ; free virtual = 12030
+Reading block design file </home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.srcs/sources_1/bd/dpu/dpu.bd>...
+Adding component instance block -- xilinx.com:ip:axi_vip:1.1 - axi_vip_0
+Adding component instance block -- xilinx.com:ip:axi_vip:1.1 - axi_vip_1
+Adding component instance block -- xilinx.com:ip:axi_vip:1.1 - axi_vip_2
+Adding component instance block -- xilinx.com:ip:clk_wiz:6.0 - clk_wiz_0
+Adding component instance block -- xilinx.com:ip:axi_interconnect:2.1 - interconnect_axifull
+Adding component instance block -- xilinx.com:ip:axi_dwidth_converter:2.1 - auto_us
+Adding component instance block -- xilinx.com:ip:axi_interconnect:2.1 - interconnect_axihpm0fpd
+Adding component instance block -- xilinx.com:ip:axi_interconnect:2.1 - interconnect_axilite
+Adding component instance block -- xilinx.com:ip:zynq_ultra_ps_e:3.3 - ps_e_0
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - psr_clk0_150
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - psr_clk1_300
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - psr_clk2_75
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - psr_clk3_100
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - psr_clk4_200
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - psr_clk5_400
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - psr_clk6_600
+Adding component instance block -- xilinx.com:ip:xlconcat:2.1 - xlconcat_0
+Adding component instance block -- xilinx.com:ip:xlconcat:2.1 - xlconcat_1
+Adding component instance block -- xilinx.com:ip:xlconstant:1.1 - xlconstant_0
+Successfully read diagram <dpu> from block design file <./dpu/dpu.srcs/sources_1/bd/dpu/dpu.bd>
+INFO: [BD 41-1662] The design 'dpu.bd' is already validated. Therefore parameter propagation will not be re-run.
+VHDL Output written to : /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/synth/dpu.v
+VHDL Output written to : /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/sim/dpu.v
+VHDL Output written to : /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/hdl/dpu_wrapper.v
+INFO: [Project 1-1716] Could not find the wrapper file ./dpu/dpu.srcs/sources_1/bd/dpu/hdl/dpu_wrapper.v, checking in project .gen location instead.
+INFO: [Vivado 12-12390] Found file ./dpu/dpu.gen/sources_1/bd/dpu/hdl/dpu_wrapper.v, adding it to Project
+INFO: [BD 41-1662] The design 'dpu.bd' is already validated. Therefore parameter propagation will not be re-run.
+VHDL Output written to : /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/synth/dpu.v
+VHDL Output written to : /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/sim/dpu.v
+VHDL Output written to : /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/hdl/dpu_wrapper.v
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_vip_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_vip_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_vip_2 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block clk_wiz_0 .
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_auto_us_0/dpu_auto_us_0_ooc.xdc'
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S_AXI'. A default connection has been created.
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI'. A default connection has been created.
+INFO: [BD 41-1029] Generation completed for the IP Integrator block interconnect_axifull/s00_couplers/auto_us .
+INFO: [xilinx.com:ip:zynq_ultra_ps_e:3.3-0] dpu_ps_e_0_0: 
+Changes in your design (including the PCW configuration settings) are not automatically exported from Vivado to Xilinx's SDK, Petalinux or Yocto.
+This is by design to avoid disrupting existing embedded development efforts. To have any changes of your design taking effect in the embedded software flow please export your
+design by going through Vivado's main menu, click on File, then Export finally select Export Hardware, please ensure you click on the Include BitStream option.
+The auto-generated HDF file is all you need to import in Xilinx's SDK, Petalinux or Yocto for your changes to be reflected in the Embedded Software Flow.
+For more information, please consult PG201, section: Exporting PCW Settings to Embedded Software Flows
+INFO: [PSU-0] Address Range of DDR (0x7ff00000 to 0x7fffffff) is reserved by PMU for internal purpose.
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI_HPM0_FPD'. A default connection has been created.
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI_HPM0_LPD'. A default connection has been created.
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S_AXI_HPC0_FPD'. A default connection has been created.
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ps_e_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_clk0_150 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_clk1_300 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_clk2_75 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_clk3_100 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_clk4_200 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_clk5_400 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block psr_clk6_600 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconstant_0 .
+Exporting to file /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/hw_handoff/dpu.hwh
+Generated Block Design Tcl file /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/hw_handoff/dpu_bd.tcl
+Generated Hardware Definition File /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/synth/dpu.hwdef
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_auto_us_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_axi_vip_0_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_axi_vip_1_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_axi_vip_2_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_clk_wiz_0_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_ps_e_0_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_psr_clk0_150_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_psr_clk1_300_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_psr_clk2_75_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_psr_clk3_100_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_psr_clk4_200_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_psr_clk5_400_0
+INFO: [IP_Flow 19-7066] Running IP cache check for IP dpu_psr_clk6_600_0
+[Fri Apr 29 17:44:34 2022] Launched dpu_auto_us_0_synth_1, dpu_clk_wiz_0_0_synth_1, dpu_axi_vip_0_0_synth_1, dpu_axi_vip_1_0_synth_1, dpu_axi_vip_2_0_synth_1, dpu_ps_e_0_0_synth_1, dpu_psr_clk0_150_0_synth_1, dpu_psr_clk1_300_0_synth_1, dpu_psr_clk2_75_0_synth_1, dpu_psr_clk3_100_0_synth_1, dpu_psr_clk4_200_0_synth_1, dpu_psr_clk5_400_0_synth_1, dpu_psr_clk6_600_0_synth_1, synth_1...
+Run output will be captured here:
+dpu_auto_us_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_auto_us_0_synth_1/runme.log
+dpu_clk_wiz_0_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_clk_wiz_0_0_synth_1/runme.log
+dpu_axi_vip_0_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_axi_vip_0_0_synth_1/runme.log
+dpu_axi_vip_1_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_axi_vip_1_0_synth_1/runme.log
+dpu_axi_vip_2_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_axi_vip_2_0_synth_1/runme.log
+dpu_ps_e_0_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_ps_e_0_0_synth_1/runme.log
+dpu_psr_clk0_150_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_psr_clk0_150_0_synth_1/runme.log
+dpu_psr_clk1_300_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_psr_clk1_300_0_synth_1/runme.log
+dpu_psr_clk2_75_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_psr_clk2_75_0_synth_1/runme.log
+dpu_psr_clk3_100_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_psr_clk3_100_0_synth_1/runme.log
+dpu_psr_clk4_200_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_psr_clk4_200_0_synth_1/runme.log
+dpu_psr_clk5_400_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_psr_clk5_400_0_synth_1/runme.log
+dpu_psr_clk6_600_0_synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/dpu_psr_clk6_600_0_synth_1/runme.log
+synth_1: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/synth_1/runme.log
+[Fri Apr 29 17:44:34 2022] Launched impl_1...
+Run output will be captured here: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 2684.934 ; gain = 216.094 ; free physical = 7007 ; free virtual = 11815
+[Fri Apr 29 17:44:34 2022] Waiting for impl_1 to finish...
+
+*** Running vivado
+    with args -log dpu_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source dpu_wrapper.tcl -notrace
+
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source dpu_wrapper.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2020.2/data/ip'.
+Command: link_design -top dpu_wrapper -part xczu7ev-ffvc1156-2-e
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Device 21-403] Loading part xczu7ev-ffvc1156-2-e
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_axi_vip_0_0/dpu_axi_vip_0_0.dcp' for cell 'dpu_i/axi_vip_0'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_axi_vip_1_0/dpu_axi_vip_1_0.dcp' for cell 'dpu_i/axi_vip_1'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_axi_vip_2_0/dpu_axi_vip_2_0.dcp' for cell 'dpu_i/axi_vip_2'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_clk_wiz_0_0/dpu_clk_wiz_0_0.dcp' for cell 'dpu_i/clk_wiz_0'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_ps_e_0_0/dpu_ps_e_0_0.dcp' for cell 'dpu_i/ps_e_0'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk0_150_0/dpu_psr_clk0_150_0.dcp' for cell 'dpu_i/psr_clk0_150'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk1_300_0/dpu_psr_clk1_300_0.dcp' for cell 'dpu_i/psr_clk1_300'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk2_75_0/dpu_psr_clk2_75_0.dcp' for cell 'dpu_i/psr_clk2_75'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk3_100_0/dpu_psr_clk3_100_0.dcp' for cell 'dpu_i/psr_clk3_100'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk4_200_0/dpu_psr_clk4_200_0.dcp' for cell 'dpu_i/psr_clk4_200'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk5_400_0/dpu_psr_clk5_400_0.dcp' for cell 'dpu_i/psr_clk5_400'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk6_600_0/dpu_psr_clk6_600_0.dcp' for cell 'dpu_i/psr_clk6_600'
+INFO: [Project 1-454] Reading design checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_auto_us_0/dpu_auto_us_0.dcp' for cell 'dpu_i/interconnect_axifull/s00_couplers/auto_us'
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2786.133 ; gain = 0.000 ; free physical = 6977 ; free virtual = 10522
+INFO: [Netlist 29-17] Analyzing 36 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+WARNING: [Opt 31-32] Removing redundant IBUF since it is not being driven by a top-level port. dpu_i/clk_wiz_0/inst/clkin1_ibuf 
+Resolution: The tool has removed redundant IBUF. To resolve this warning, check for redundant IBUF in the input design.
+WARNING: [Constraints 18-550] Could not create 'IBUF_LOW_PWR' constraint because net 'dpu_i/clk_wiz_0/clk_in1' is not directly connected to top level port. Synthesis is ignored for IBUF_LOW_PWR but preserved for implementation.
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk2_75_0/dpu_psr_clk2_75_0.xdc] for cell 'dpu_i/psr_clk2_75/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk2_75_0/dpu_psr_clk2_75_0.xdc] for cell 'dpu_i/psr_clk2_75/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk6_600_0/dpu_psr_clk6_600_0.xdc] for cell 'dpu_i/psr_clk6_600/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk6_600_0/dpu_psr_clk6_600_0.xdc] for cell 'dpu_i/psr_clk6_600/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk6_600_0/dpu_psr_clk6_600_0_board.xdc] for cell 'dpu_i/psr_clk6_600/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk6_600_0/dpu_psr_clk6_600_0_board.xdc] for cell 'dpu_i/psr_clk6_600/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk5_400_0/dpu_psr_clk5_400_0.xdc] for cell 'dpu_i/psr_clk5_400/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk5_400_0/dpu_psr_clk5_400_0.xdc] for cell 'dpu_i/psr_clk5_400/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk5_400_0/dpu_psr_clk5_400_0_board.xdc] for cell 'dpu_i/psr_clk5_400/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk5_400_0/dpu_psr_clk5_400_0_board.xdc] for cell 'dpu_i/psr_clk5_400/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk4_200_0/dpu_psr_clk4_200_0.xdc] for cell 'dpu_i/psr_clk4_200/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk4_200_0/dpu_psr_clk4_200_0.xdc] for cell 'dpu_i/psr_clk4_200/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk4_200_0/dpu_psr_clk4_200_0_board.xdc] for cell 'dpu_i/psr_clk4_200/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk4_200_0/dpu_psr_clk4_200_0_board.xdc] for cell 'dpu_i/psr_clk4_200/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk3_100_0/dpu_psr_clk3_100_0.xdc] for cell 'dpu_i/psr_clk3_100/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk3_100_0/dpu_psr_clk3_100_0.xdc] for cell 'dpu_i/psr_clk3_100/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk3_100_0/dpu_psr_clk3_100_0_board.xdc] for cell 'dpu_i/psr_clk3_100/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk3_100_0/dpu_psr_clk3_100_0_board.xdc] for cell 'dpu_i/psr_clk3_100/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_clk_wiz_0_0/dpu_clk_wiz_0_0_board.xdc] for cell 'dpu_i/clk_wiz_0/inst'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_clk_wiz_0_0/dpu_clk_wiz_0_0_board.xdc] for cell 'dpu_i/clk_wiz_0/inst'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk2_75_0/dpu_psr_clk2_75_0_board.xdc] for cell 'dpu_i/psr_clk2_75/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk2_75_0/dpu_psr_clk2_75_0_board.xdc] for cell 'dpu_i/psr_clk2_75/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk1_300_0/dpu_psr_clk1_300_0.xdc] for cell 'dpu_i/psr_clk1_300/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk1_300_0/dpu_psr_clk1_300_0.xdc] for cell 'dpu_i/psr_clk1_300/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk1_300_0/dpu_psr_clk1_300_0_board.xdc] for cell 'dpu_i/psr_clk1_300/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk1_300_0/dpu_psr_clk1_300_0_board.xdc] for cell 'dpu_i/psr_clk1_300/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk0_150_0/dpu_psr_clk0_150_0.xdc] for cell 'dpu_i/psr_clk0_150/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk0_150_0/dpu_psr_clk0_150_0.xdc] for cell 'dpu_i/psr_clk0_150/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk0_150_0/dpu_psr_clk0_150_0_board.xdc] for cell 'dpu_i/psr_clk0_150/U0'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_psr_clk0_150_0/dpu_psr_clk0_150_0_board.xdc] for cell 'dpu_i/psr_clk0_150/U0'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_ps_e_0_0/dpu_ps_e_0_0.xdc] for cell 'dpu_i/ps_e_0/inst'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_ps_e_0_0/dpu_ps_e_0_0.xdc] for cell 'dpu_i/ps_e_0/inst'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_clk_wiz_0_0/dpu_clk_wiz_0_0.xdc] for cell 'dpu_i/clk_wiz_0/inst'
+INFO: [Timing 38-35] Done setting XDC timing constraints. [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_clk_wiz_0_0/dpu_clk_wiz_0_0.xdc:57]
+INFO: [Timing 38-2] Deriving generated clocks [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_clk_wiz_0_0/dpu_clk_wiz_0_0.xdc:57]
+get_clocks: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 3462.816 ; gain = 297.359 ; free physical = 6269 ; free virtual = 9815
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_clk_wiz_0_0/dpu_clk_wiz_0_0.xdc] for cell 'dpu_i/clk_wiz_0/inst'
+Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_auto_us_0/dpu_auto_us_0_clocks.xdc] for cell 'dpu_i/interconnect_axifull/s00_couplers/auto_us/inst'
+Finished Parsing XDC File [/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.gen/sources_1/bd/dpu/ip/dpu_auto_us_0/dpu_auto_us_0_clocks.xdc] for cell 'dpu_i/interconnect_axifull/s00_couplers/auto_us/inst'
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3478.836 ; gain = 0.000 ; free physical = 6254 ; free virtual = 9815
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+25 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:34 ; elapsed = 00:00:50 . Memory (MB): peak = 3478.836 ; gain = 1083.062 ; free physical = 6254 ; free virtual = 9815
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xczu7ev'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu7ev'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 3519.582 ; gain = 40.746 ; free physical = 6242 ; free virtual = 9804
+
+Starting Cache Timing Information Task
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Ending Cache Timing Information Task | Checksum: a9eaad71
+
+Time (s): cpu = 00:00:00.22 ; elapsed = 00:00:00.16 . Memory (MB): peak = 3519.582 ; gain = 0.000 ; free physical = 6242 ; free virtual = 9805
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 14 inverter(s) to 607 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: 7b3d0df9
+
+Time (s): cpu = 00:00:00.42 ; elapsed = 00:00:00.30 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9645
+INFO: [Opt 31-389] Phase Retarget created 158 cells and removed 458 cells
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 1 load pin(s).
+Phase 2 Constant propagation | Checksum: 74fefa0a
+
+Time (s): cpu = 00:00:00.79 ; elapsed = 00:00:00.68 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9645
+INFO: [Opt 31-389] Phase Constant propagation created 15 cells and removed 1253 cells
+
+Phase 3 Sweep
+Phase 3 Sweep | Checksum: c0589116
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.99 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9645
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 1012 cells
+INFO: [Opt 31-1021] In phase Sweep, 1 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 4 BUFG optimization
+INFO: [Opt 31-1077] Phase BUFG optimization inserted 0 global clock buffer(s) for CLOCK_LOW_FANOUT.
+Phase 4 BUFG optimization | Checksum: c0589116
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9645
+INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
+
+Phase 5 Shift Register Optimization
+INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
+Phase 5 Shift Register Optimization | Checksum: c0589116
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9646
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 6 Post Processing Netlist
+Phase 6 Post Processing Netlist | Checksum: c0589116
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9646
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+Opt_design Change Summary
+=========================
+
+
+-------------------------------------------------------------------------------------------------------------------------
+|  Phase                        |  #Cells created  |  #Cells Removed  |  #Constrained objects preventing optimizations  |
+-------------------------------------------------------------------------------------------------------------------------
+|  Retarget                     |             158  |             458  |                                              0  |
+|  Constant propagation         |              15  |            1253  |                                              0  |
+|  Sweep                        |               0  |            1012  |                                              1  |
+|  BUFG optimization            |               0  |               0  |                                              0  |
+|  Shift Register Optimization  |               0  |               0  |                                              0  |
+|  Post Processing Netlist      |               0  |               0  |                                              0  |
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9646
+Ending Logic Optimization Task | Checksum: 1ba2e2ad3
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6083 ; free virtual = 9646
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+Ending Power Optimization Task | Checksum: 1ba2e2ad3
+
+Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6082 ; free virtual = 9645
+
+Starting Final Cleanup Task
+Ending Final Cleanup Task | Checksum: 1ba2e2ad3
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6082 ; free virtual = 9645
+
+Starting Netlist Obfuscation Task
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6082 ; free virtual = 9645
+Ending Netlist Obfuscation Task | Checksum: 1ba2e2ad3
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3675.457 ; gain = 0.000 ; free physical = 6082 ; free virtual = 9645
+INFO: [Common 17-83] Releasing license: Implementation
+44 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+INFO: [Common 17-1381] The checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/dpu_wrapper_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file dpu_wrapper_drc_opted.rpt -pb dpu_wrapper_drc_opted.pb -rpx dpu_wrapper_drc_opted.rpx
+Command: report_drc -file dpu_wrapper_drc_opted.rpt -pb dpu_wrapper_drc_opted.pb -rpx dpu_wrapper_drc_opted.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Coretcl 2-168] The results of DRC are in file /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/dpu_wrapper_drc_opted.rpt.
+report_drc completed successfully
+report_drc: Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 4437.625 ; gain = 754.164 ; free physical = 5477 ; free virtual = 9176
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xczu7ev'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu7ev'
+WARNING: [Vivado_Tcl 4-1400] -ultrathreads option currently only supported on multi-SLR devices. Continuing placement in regular mode.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 4 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4437.625 ; gain = 0.000 ; free physical = 5482 ; free virtual = 9173
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: d9dd7011
+
+Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.03 . Memory (MB): peak = 4437.625 ; gain = 0.000 ; free physical = 5482 ; free virtual = 9173
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4437.625 ; gain = 0.000 ; free physical = 5482 ; free virtual = 9173
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: c9208a36
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.70 . Memory (MB): peak = 4437.625 ; gain = 0.000 ; free physical = 5467 ; free virtual = 9165
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: 1a01d30f8
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 4461.637 ; gain = 24.012 ; free physical = 5425 ; free virtual = 9127
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: 1a01d30f8
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 4461.637 ; gain = 24.012 ; free physical = 5425 ; free virtual = 9127
+Phase 1 Placer Initialization | Checksum: 1a01d30f8
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 4461.637 ; gain = 24.012 ; free physical = 5425 ; free virtual = 9128
+
+Phase 2 Global Placement
+
+Phase 2.1 Floorplanning
+
+Phase 2.1.1 Partition Driven Placement
+
+Phase 2.1.1.1 PBP: Partition Driven Placement
+Phase 2.1.1.1 PBP: Partition Driven Placement | Checksum: 1c860a58d
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 4461.637 ; gain = 24.012 ; free physical = 5418 ; free virtual = 9122
+
+Phase 2.1.1.2 PBP: Clock Region Placement
+Phase 2.1.1.2 PBP: Clock Region Placement | Checksum: 1c860a58d
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 4461.637 ; gain = 24.012 ; free physical = 5416 ; free virtual = 9119
+
+Phase 2.1.1.3 PBP: Compute Congestion
+Phase 2.1.1.3 PBP: Compute Congestion | Checksum: 1c860a58d
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5384 ; free virtual = 9097
+
+Phase 2.1.1.4 PBP: UpdateTiming
+Phase 2.1.1.4 PBP: UpdateTiming | Checksum: 12ea0c94c
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5384 ; free virtual = 9097
+
+Phase 2.1.1.5 PBP: Add part constraints
+Phase 2.1.1.5 PBP: Add part constraints | Checksum: 12ea0c94c
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5384 ; free virtual = 9097
+Phase 2.1.1 Partition Driven Placement | Checksum: 12ea0c94c
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5385 ; free virtual = 9098
+Phase 2.1 Floorplanning | Checksum: 12ea0c94c
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5385 ; free virtual = 9098
+
+Phase 2.2 Update Timing before SLR Path Opt
+Phase 2.2 Update Timing before SLR Path Opt | Checksum: 12ea0c94c
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5385 ; free virtual = 9098
+
+Phase 2.3 Global Placement Core
+
+Phase 2.3.1 Physical Synthesis In Placer
+INFO: [Physopt 32-1035] Found 0 LUTNM shape to break, 4 LUT instances to create LUTNM shape
+INFO: [Physopt 32-1044] Break lutnm for timing: one critical 0, two critical 0, total 0, new lutff created 0
+INFO: [Physopt 32-775] End 1 Pass. Optimized 2 nets or cells. Created 0 new cell, deleted 2 existing cells and moved 0 existing cell
+INFO: [Physopt 32-69] No nets found for rewiring optimization.
+INFO: [Physopt 32-661] Optimized 0 net.  Re-placed 0 instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-65] No nets found for high-fanout optimization.
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-670] No setup violation found.  DSP Register Optimization was not performed.
+INFO: [Physopt 32-670] No setup violation found.  Shift Register to Pipeline Optimization was not performed.
+INFO: [Physopt 32-670] No setup violation found.  Shift Register Optimization was not performed.
+INFO: [Physopt 32-670] No setup violation found.  BRAM Register Optimization was not performed.
+INFO: [Physopt 32-670] No setup violation found.  URAM Register Optimization was not performed.
+INFO: [Physopt 32-949] No candidate nets found for dynamic/static region interface net replication
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5384 ; free virtual = 9093
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization                                     |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  LUT Combining                                    |            0  |              2  |                     2  |           0  |           1  |  00:00:00  |
+|  Equivalent Driver Rewiring                       |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Very High Fanout                                 |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  DSP Register                                     |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Shift Register to Pipeline                       |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Shift Register                                   |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  BRAM Register                                    |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  URAM Register                                    |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Dynamic/Static Region Interface Net Replication  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Total                                            |            0  |              2  |                     2  |           0  |           4  |  00:00:00  |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Phase 2.3.1 Physical Synthesis In Placer | Checksum: 193243ade
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:04 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5385 ; free virtual = 9093
+Phase 2.3 Global Placement Core | Checksum: 21c1be3ba
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5379 ; free virtual = 9088
+Phase 2 Global Placement | Checksum: 21c1be3ba
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5384 ; free virtual = 9093
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 12a8d8613
+
+Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5384 ; free virtual = 9092
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 15ce89d85
+
+Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5380 ; free virtual = 9089
+
+Phase 3.3 Small Shape DP
+
+Phase 3.3.1 Small Shape Clustering
+Phase 3.3.1 Small Shape Clustering | Checksum: 1c0b794c3
+
+Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5366 ; free virtual = 9075
+
+Phase 3.3.2 Flow Legalize Slice Clusters
+Phase 3.3.2 Flow Legalize Slice Clusters | Checksum: 230cbbafa
+
+Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5358 ; free virtual = 9075
+
+Phase 3.3.3 Slice Area Swap
+Phase 3.3.3 Slice Area Swap | Checksum: 21c0973f9
+
+Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5339 ; free virtual = 9056
+Phase 3.3 Small Shape DP | Checksum: 1cb90975a
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5361 ; free virtual = 9079
+
+Phase 3.4 Re-assign LUT pins
+Phase 3.4 Re-assign LUT pins | Checksum: 221814a18
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5360 ; free virtual = 9078
+
+Phase 3.5 Pipeline Register Optimization
+Phase 3.5 Pipeline Register Optimization | Checksum: 20831e777
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5360 ; free virtual = 9078
+Phase 3 Detail Placement | Checksum: 20831e777
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5360 ; free virtual = 9078
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+Post Placement Optimization Initialization | Checksum: 1b7b95223
+
+Phase 4.1.1.1 BUFG Insertion
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 4 CPUs
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=0.496 | TNS=0.000 |
+Phase 1 Physical Synthesis Initialization | Checksum: 1ce05ac45
+
+Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5359 ; free virtual = 9076
+INFO: [Place 46-56] BUFG insertion identified 0 candidate nets. Inserted BUFG: 0, Replicated BUFG Driver: 0, Skipped due to Placement/Routing Conflicts: 0, Skipped due to Timing Degradation: 0, Skipped due to Illegal Netlist: 0.
+Ending Physical Synthesis Task | Checksum: 2144a2c86
+
+Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.03 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5359 ; free virtual = 9076
+Phase 4.1.1.1 BUFG Insertion | Checksum: 1b7b95223
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:09 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5360 ; free virtual = 9077
+INFO: [Place 30-746] Post Placement Timing Summary WNS=0.775. For the most accurate timing information please run report_timing.
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:09 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5360 ; free virtual = 9078
+Phase 4.1 Post Commit Optimization | Checksum: 2331706d6
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:09 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5359 ; free virtual = 9077
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5359 ; free virtual = 9077
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 305d97e09
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5370 ; free virtual = 9088
+
+Phase 4.3 Placer Reporting
+
+Phase 4.3.1 Print Estimated Congestion
+INFO: [Place 30-612] Post-Placement Estimated Congestion 
+ ________________________________________________________________________
+|           | Global Congestion | Long Congestion   | Short Congestion  |
+| Direction | Region Size       | Region Size       | Region Size       |
+|___________|___________________|___________________|___________________|
+|      North|                1x1|                1x1|                1x1|
+|___________|___________________|___________________|___________________|
+|      South|                1x1|                1x1|                1x1|
+|___________|___________________|___________________|___________________|
+|       East|                1x1|                1x1|                1x1|
+|___________|___________________|___________________|___________________|
+|       West|                1x1|                1x1|                1x1|
+|___________|___________________|___________________|___________________|
+
+Phase 4.3.1 Print Estimated Congestion | Checksum: 305d97e09
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5370 ; free virtual = 9088
+Phase 4.3 Placer Reporting | Checksum: 305d97e09
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5370 ; free virtual = 9088
+
+Phase 4.4 Final Placement Cleanup
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5370 ; free virtual = 9088
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5370 ; free virtual = 9088
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 31ede4c44
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5370 ; free virtual = 9088
+Ending Placer Task | Checksum: 25346bd57
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5370 ; free virtual = 9088
+INFO: [Common 17-83] Releasing license: Implementation
+82 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:00:18 ; elapsed = 00:00:14 . Memory (MB): peak = 4464.648 ; gain = 27.023 ; free physical = 5449 ; free virtual = 9167
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00.36 ; elapsed = 00:00:00.10 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5437 ; free virtual = 9159
+INFO: [Common 17-1381] The checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/dpu_wrapper_placed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_io -file dpu_wrapper_io_placed.rpt
+report_io: Time (s): cpu = 00:00:00.23 ; elapsed = 00:00:00.31 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5418 ; free virtual = 9138
+INFO: [runtcl-4] Executing : report_utilization -file dpu_wrapper_utilization_placed.rpt -pb dpu_wrapper_utilization_placed.pb
+INFO: [runtcl-4] Executing : report_control_sets -verbose -file dpu_wrapper_control_sets_placed.rpt
+report_control_sets: Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.13 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5445 ; free virtual = 9165
+Command: phys_opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xczu7ev'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu7ev'
+INFO: [Vivado_Tcl 4-383] Design worst setup slack (WNS) is greater than or equal to 0.000 ns. Skipping all physical synthesis optimizations.
+INFO: [Vivado_Tcl 4-232] No setup violation found. The netlist was not modified.
+INFO: [Common 17-83] Releasing license: Implementation
+91 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00.37 ; elapsed = 00:00:00.10 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5434 ; free virtual = 9158
+INFO: [Common 17-1381] The checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/dpu_wrapper_physopt.dcp' has been generated.
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xczu7ev'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu7ev'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 4 CPUs
+Checksum: PlaceDB: fd8a66c5 ConstDB: 0 ShapeSum: 82f9df5f RouteDB: d2c27733
+
+Phase 1 Build RT Design
+Nodegraph reading from file.  Time (s): cpu = 00:00:00.96 ; elapsed = 00:00:01 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5251 ; free virtual = 8971
+Phase 1 Build RT Design | Checksum: f20c5ff6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5244 ; free virtual = 8965
+Post Restoration Checksum: NetGraph: e2c3a76 NumContArr: 9c2977cf Constraints: b83afa46 Timing: 0
+
+Phase 2 Router Initialization
+
+Phase 2.1 Fix Topology Constraints
+Phase 2.1 Fix Topology Constraints | Checksum: 16290ac8b
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5212 ; free virtual = 8935
+
+Phase 2.2 Pre Route Cleanup
+Phase 2.2 Pre Route Cleanup | Checksum: 16290ac8b
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 4464.648 ; gain = 0.000 ; free physical = 5212 ; free virtual = 8934
+
+Phase 2.3 Global Clock Net Routing
+ Number of Nodes with overlaps = 0
+Phase 2.3 Global Clock Net Routing | Checksum: 1d1552c14
+
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 4475.676 ; gain = 11.027 ; free physical = 5197 ; free virtual = 8920
+
+Phase 2.4 Update Timing
+Phase 2.4 Update Timing | Checksum: 21396a3ea
+
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 4475.676 ; gain = 11.027 ; free physical = 5203 ; free virtual = 8926
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.874  | TNS=0.000  | WHS=0.024  | THS=0.000  |
+
+Phase 2 Router Initialization | Checksum: 2b680c179
+
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 4475.676 ; gain = 11.027 ; free physical = 5199 ; free virtual = 8923
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0 %
+  Global Horizontal Routing Utilization  = 0 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 102
+    (Failed Nets is the sum of unrouted and partially routed nets)
+  Number of Unrouted Nets             = 94
+  Number of Partially Routed Nets     = 8
+  Number of Node Overlaps             = 0
+
+
+Phase 3 Initial Routing
+
+Phase 3.1 Global Routing
+Phase 3.1 Global Routing | Checksum: 2b680c179
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5200 ; free virtual = 8924
+Phase 3 Initial Routing | Checksum: 14d916c47
+
+Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5174 ; free virtual = 8906
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 5
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.874  | TNS=0.000  | WHS=0.052  | THS=0.000  |
+
+Phase 4.1 Global Iteration 0 | Checksum: 1d8d5f158
+
+Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5172 ; free virtual = 8905
+
+Phase 4.2 Additional Iteration for Hold
+Phase 4.2 Additional Iteration for Hold | Checksum: 204a9d787
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5173 ; free virtual = 8905
+Phase 4 Rip-up And Reroute | Checksum: 204a9d787
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5173 ; free virtual = 8905
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+Phase 5.1 Delay CleanUp | Checksum: 2773d24da
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5176 ; free virtual = 8908
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 2773d24da
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5176 ; free virtual = 8908
+Phase 5 Delay and Skew Optimization | Checksum: 2773d24da
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5176 ; free virtual = 8908
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 25c519e0a
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5176 ; free virtual = 8909
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.874  | TNS=0.000  | WHS=0.052  | THS=0.000  |
+
+Phase 6.1 Hold Fix Iter | Checksum: 25c519e0a
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5176 ; free virtual = 8909
+Phase 6 Post Hold Fix | Checksum: 25c519e0a
+
+Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5176 ; free virtual = 8909
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0.0233184 %
+  Global Horizontal Routing Utilization  = 0.00267394 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+    (Failed Nets is the sum of unrouted and partially routed nets)
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Phase 7 Route finalize | Checksum: 26ee4735f
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5173 ; free virtual = 8905
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 26ee4735f
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5175 ; free virtual = 8907
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 26ee4735f
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5174 ; free virtual = 8906
+
+Phase 10 Post Router Timing
+INFO: [Route 35-57] Estimated Timing Summary | WNS=0.874  | TNS=0.000  | WHS=0.052  | THS=0.000  |
+
+INFO: [Route 35-327] The final timing numbers are based on the router estimated timing analysis. For a complete and accurate timing signoff, please run report_timing_summary.
+Phase 10 Post Router Timing | Checksum: 26ee4735f
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5178 ; free virtual = 8910
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5222 ; free virtual = 8954
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+105 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:09 . Memory (MB): peak = 4484.535 ; gain = 19.887 ; free physical = 5222 ; free virtual = 8954
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00.39 ; elapsed = 00:00:00.11 . Memory (MB): peak = 4492.539 ; gain = 0.000 ; free physical = 5209 ; free virtual = 8946
+INFO: [Common 17-1381] The checkpoint '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/dpu_wrapper_routed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file dpu_wrapper_drc_routed.rpt -pb dpu_wrapper_drc_routed.pb -rpx dpu_wrapper_drc_routed.rpx
+Command: report_drc -file dpu_wrapper_drc_routed.rpt -pb dpu_wrapper_drc_routed.pb -rpx dpu_wrapper_drc_routed.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Coretcl 2-168] The results of DRC are in file /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/dpu_wrapper_drc_routed.rpt.
+report_drc completed successfully
+INFO: [runtcl-4] Executing : report_methodology -file dpu_wrapper_methodology_drc_routed.rpt -pb dpu_wrapper_methodology_drc_routed.pb -rpx dpu_wrapper_methodology_drc_routed.rpx
+Command: report_methodology -file dpu_wrapper_methodology_drc_routed.rpt -pb dpu_wrapper_methodology_drc_routed.pb -rpx dpu_wrapper_methodology_drc_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 4 threads
+INFO: [Coretcl 2-1520] The results of Report Methodology are in file /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/dpu_wrapper_methodology_drc_routed.rpt.
+report_methodology completed successfully
+INFO: [runtcl-4] Executing : report_power -file dpu_wrapper_power_routed.rpt -pb dpu_wrapper_power_summary_routed.pb -rpx dpu_wrapper_power_routed.rpx
+Command: report_power -file dpu_wrapper_power_routed.rpt -pb dpu_wrapper_power_summary_routed.pb -rpx dpu_wrapper_power_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+118 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+INFO: [runtcl-4] Executing : report_route_status -file dpu_wrapper_route_status.rpt -pb dpu_wrapper_route_status.pb
+INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -file dpu_wrapper_timing_summary_routed.rpt -pb dpu_wrapper_timing_summary_routed.pb -rpx dpu_wrapper_timing_summary_routed.rpx -warn_on_violation 
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [runtcl-4] Executing : report_incremental_reuse -file dpu_wrapper_incremental_reuse_routed.rpt
+INFO: [Vivado_Tcl 4-1062] Incremental flow is disabled. No incremental reuse Info to report.
+INFO: [runtcl-4] Executing : report_clock_utilization -file dpu_wrapper_clock_utilization_routed.rpt
+INFO: [runtcl-4] Executing : report_bus_skew -warn_on_violation -file dpu_wrapper_bus_skew_routed.rpt -pb dpu_wrapper_bus_skew_routed.pb -rpx dpu_wrapper_bus_skew_routed.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+Command: write_bitstream -force dpu_wrapper.bit
+Attempting to get a license for feature 'Implementation' and/or device 'xczu7ev'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu7ev'
+Running DRC as a precondition to command write_bitstream
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado 12-3199] DRC finished with 0 Errors
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+INFO: [Designutils 20-2272] Running write_bitstream with 4 threads.
+Loading data files...
+Loading site data...
+Loading route data...
+Processing options...
+Creating bitmap...
+Creating bitstream...
+Writing bitstream ./dpu_wrapper.bit...
+INFO: [Vivado 12-1842] Bitgen Completed Successfully.
+INFO: [Project 1-120] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
+INFO: [Common 17-186] '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu/dpu.runs/impl_1/usage_statistics_webtalk.xml' has been successfully sent to Xilinx on Fri Apr 29 17:58:44 2022. For additional details about this file, please refer to the WebTalk help file at /tools/Xilinx/Vivado/2020.2/doc/webtalk_introduction.html.
+INFO: [Common 17-83] Releasing license: Implementation
+13 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+write_bitstream completed successfully
+write_bitstream: Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 4632.082 ; gain = 123.535 ; free physical = 5150 ; free virtual = 8904
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 29 17:58:44 2022...
+[Fri Apr 29 17:58:49 2022] impl_1 finished
+wait_on_run: Time (s): cpu = 00:28:57 ; elapsed = 00:14:15 . Memory (MB): peak = 2684.934 ; gain = 0.000 ; free physical = 8015 ; free virtual = 11768
+INFO: [Vivado 12-4895] Creating Hardware Platform: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu.xsa ...
+INFO: [Project 1-655] Project does not have Board Part set. Board related data may be missing or incomplete in the generated Hardware Platform.
+WARNING: [Project 1-646] Board name, vendor and part not set in Hardware Platform.
+WARNING: [Project 1-645] Board images not set in Hardware Platform.
+INFO: [Hsi 55-2053] elapsed time for repository (/tools/Xilinx/Vivado/2020.2/data/embeddedsw) loading 0 seconds
+WARNING: [BD 41-2589] Platform should have atleast one axi memory mapped master interface. Enable a master AXI interface as platform AXI_PORT.
+INFO: [Project 1-1042] Successfully generated hpfm file
+write_project_tcl: Time (s): cpu = 00:00:53 ; elapsed = 00:00:23 . Memory (MB): peak = 2684.934 ; gain = 0.000 ; free physical = 7819 ; free virtual = 11747
+INFO: [Vivado 12-12469] The Hardware Platform can be used for Hardware and Hardware Emulation
+INFO: [Vivado 12-4896] Successfully created Hardware Platform: /home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu/dpu.xsa
+write_hw_platform: Time (s): cpu = 00:01:04 ; elapsed = 00:00:34 . Memory (MB): peak = 2684.934 ; gain = 0.000 ; free physical = 7782 ; free virtual = 11737
+INFO: [Vivado 12-12082] Found metadata file: xsa.json
+INFO: [Vivado 12-6078] Validating platform properties...
+INFO: [Vivado 12-6079] Validating unified platform...
+INFO: [Vivado 12-6073] Validating 'pre_synth' platform state...
+INFO: [Vivado 12-6077] Validating platform files...
+INFO: [Vivado 12-6066] Finished running validate_hw_platform for file: './dpu.xsa'
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 29 17:59:24 2022...
+vivado -mode batch -source check_timing.tcl -notrace
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source check_timing.tcl -notrace
+Timing constraints are met.
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 29 17:59:36 2022...
+
+Built dpu successfully!
+
+make[1]: Leaving directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform/dpu'
+cd vitis_platform && make XSA_PATH=./dpu/dpu.xsa BOARD=ZCU104
+make[1]: Entering directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform'
+rm -rf ./*/output
+usage: make [target]
+
+options:
+--------
+all:        clean, show help message, and make the platform.
+help:       show help message.
+platform:   make the Vitis platform.
+clean:      clean Vitis platform for a given overlay.
+
+arguments:
+----------
+XSA_PATH:   path to the xsa file
+            e.g., /home/usr/boards/ZCU104/ultra/ultra.xsa
+BOARD:      name of the board
+            e.g., ZCU104, Ultra96, ZCU111
+
+current configuration:
+----------------------
+make XSA_PATH=./dpu/dpu.xsa
+     BOARD=ZCU104
+
+mkdir -p ./ZCU104/platforms
+xsct -sdx build_pfm.tcl ./dpu/dpu.xsa dpu ZCU104 psu_cortexa53
+Opening the hardware design, this may take few seconds.
+INFO: [Hsi 55-2053] elapsed time for repository (/tools/Xilinx/Vitis/2020.2/data/embeddedsw) loading 1 seconds
+INFO: Populating the default qemu data for the domain "xrt" from the install location /tools/Xilinx/Vitis/2020.2/data/emulation/platforms/zynqmp/sw/a53_linux/qemu/
+rm -rf ./ZCU104/platforms/dpu
+cp -rf ./ZCU104/output/dpu/export/dpu \
+ZCU104/platforms/dpu
+Successfully finished building vitis platform.
+Vitis platform stored in ZCU104/platforms/dpu.
+make[1]: Leaving directory '/home/gabriele/Desktop/DPU-PYNQ/boards/vitis_platform'
+cp -rf vitis_platform/ZCU104/platforms/dpu ZCU104
+Successfully finished building vitis platform.
+Vitis platform stored in ZCU104/dpu.
+cd /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104 ;\
+v++ -t hw --platform /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm --save-temps --config /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/prj_config --xp param:compiler.userPostSysLinkTcl=/home/gabriele/Desktop/DPU-PYNQ/boards/../vitis-ai-git/dsa/DPU-TRD/prj/Vitis/syslink/strip_interconnects.tcl -l --temp_dir binary_container_1 \
+	--log_dir binary_container_1/logs \
+	--remote_ip_cache binary_container_1/ip_cache -o /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/dpu.xclbin binary_container_1/dpu.xo
+WARNING: [v++ 60-1600] The option 'xp' was used directly on the command line, where its usage is deprecated. To ensure input line works for supported operating systems or shells, v++ supports specification for some options in a configuration file. As an alternative, please use options 'advanced.*', 'vivado.*' in a configuration file. Use one or more configuration files along with section headers to define key-value pairs for the advanced properties or parameters. Specify a configuration file using '--config'.
+INFO: [v++ 82-185] Check out the auto-generated 'sample_link.ini' configuration file. The file shows how to migrate from deprecated command line --xp switches to configuration file directives.
+Option Map File Used: '/tools/Xilinx/Vitis/2020.2/data/vitis/vpp/optMap.xml'
+
+****** v++ v2020.2 (64-bit)
+  **** SW Build (by xbuild) on 2020-11-18-05:13:29
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+WARNING: [v++ 60-1495] Deprecated parameter found: compiler.userPostSysLinkTcl. Please use this replacement parameter instead: compiler.userPostDebugProfileOverlayTcl
+INFO: [v++ 60-1306] Additional information associated with this v++ link can be found at:
+	Reports: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/reports/link
+	Log files: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/logs/link
+Running Dispatch Server on port:36051
+INFO: [v++ 60-1548] Creating build summary session with primary output /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/dpu.xclbin.link_summary, at Fri Apr 29 18:00:07 2022
+INFO: [v++ 60-1316] Initiating connection to rulecheck server, at Fri Apr 29 18:00:07 2022
+Running Rule Check Server on port:39555
+INFO: [v++ 60-1315] Creating rulecheck session with output '/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/reports/link/v++_link_dpu_guidance.html', at Fri Apr 29 18:00:08 2022
+INFO: [v++ 60-895]   Target platform: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm
+INFO: [v++ 60-1578]   This platform contains Xilinx Shell Archive '/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/hw/dpu.xsa'
+INFO: [v++ 60-629] Linking for hardware target
+INFO: [v++ 60-423]   Target device: dpu
+INFO: [v++ 60-1332] Run 'run_link' status: Not started
+INFO: [v++ 60-1443] [18:00:09] Run run_link: Step system_link: Started
+INFO: [v++ 60-1453] Command Line: system_link --xo /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/dpu.xo -keep --config /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/syslinkConfig.ini --xpfm /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm --target hw --output_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int --temp_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link
+INFO: [v++ 60-1454] Run Directory: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/run_link
+INFO: [SYSTEM_LINK 60-1316] Initiating connection to rulecheck server, at Fri Apr 29 18:00:11 2022
+INFO: [SYSTEM_LINK 82-70] Extracting xo v3 file /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/dpu.xo
+INFO: [SYSTEM_LINK 82-53] Creating IP database /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-38] [18:00:11] build_xd_ip_db started: /tools/Xilinx/Vitis/2020.2/bin/build_xd_ip_db -ip_search 0  -sds-pf /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/dpu.hpfm -clkid 0 -ip /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/iprepo/xilinx_com_RTLKernel_DPUCZDX8G_1_0,DPUCZDX8G -o /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-37] [18:00:16] build_xd_ip_db finished successfully
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1629.977 ; gain = 316.816 ; free physical = 7529 ; free virtual = 12215
+INFO: [SYSTEM_LINK 82-51] Create system connectivity graph
+INFO: [SYSTEM_LINK 82-102] Applying explicit connections to the system connectivity graph: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [SYSTEM_LINK 82-38] [18:00:16] cfgen started: /tools/Xilinx/Vitis/2020.2/bin/cfgen  -nk DPUCZDX8G:2 -sp DPUCZDX8G_1.M_AXI_GP0:HPC0 -sp DPUCZDX8G_1.M_AXI_HP0:HP0 -sp DPUCZDX8G_1.M_AXI_HP2:HP1 -sp DPUCZDX8G_2.M_AXI_GP0:HPC0 -sp DPUCZDX8G_2.M_AXI_HP0:HP2 -sp DPUCZDX8G_2.M_AXI_HP2:HP3 -clock.id 1:DPUCZDX8G_1.aclk -clock.id 6:DPUCZDX8G_1.ap_clk_2 -clock.id 1:DPUCZDX8G_2.aclk -clock.id 6:DPUCZDX8G_2.ap_clk_2 -dmclkid 0 -r /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [CFGEN 83-0] Kernel Specs: 
+INFO: [CFGEN 83-0]   kernel: DPUCZDX8G, num: 2  {DPUCZDX8G_1 DPUCZDX8G_2}
+INFO: [CFGEN 83-0] Port Specs: 
+INFO: [CFGEN 83-0]   kernel: DPUCZDX8G_1, k_port: M_AXI_GP0, sptag: HPC0
+INFO: [CFGEN 83-0]   kernel: DPUCZDX8G_1, k_port: M_AXI_HP0, sptag: HP0
+INFO: [CFGEN 83-0]   kernel: DPUCZDX8G_1, k_port: M_AXI_HP2, sptag: HP1
+INFO: [CFGEN 83-0]   kernel: DPUCZDX8G_2, k_port: M_AXI_GP0, sptag: HPC0
+INFO: [CFGEN 83-0]   kernel: DPUCZDX8G_2, k_port: M_AXI_HP0, sptag: HP2
+INFO: [CFGEN 83-0]   kernel: DPUCZDX8G_2, k_port: M_AXI_HP2, sptag: HP3
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_instr_addr to HPC0 for directive DPUCZDX8G_1.M_AXI_GP0:HPC0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_prof_addr to HPC0 for directive DPUCZDX8G_1.M_AXI_GP0:HPC0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base0_addr to HP0 for directive DPUCZDX8G_1.M_AXI_HP0:HP0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base1_addr to HP0 for directive DPUCZDX8G_1.M_AXI_HP0:HP0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base2_addr to HP0 for directive DPUCZDX8G_1.M_AXI_HP0:HP0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base3_addr to HP0 for directive DPUCZDX8G_1.M_AXI_HP0:HP0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base4_addr to HP1 for directive DPUCZDX8G_1.M_AXI_HP2:HP1
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base5_addr to HP1 for directive DPUCZDX8G_1.M_AXI_HP2:HP1
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base6_addr to HP1 for directive DPUCZDX8G_1.M_AXI_HP2:HP1
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_1.dpu_base7_addr to HP1 for directive DPUCZDX8G_1.M_AXI_HP2:HP1
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_instr_addr to HPC0 for directive DPUCZDX8G_2.M_AXI_GP0:HPC0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_prof_addr to HPC0 for directive DPUCZDX8G_2.M_AXI_GP0:HPC0
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base0_addr to HP2 for directive DPUCZDX8G_2.M_AXI_HP0:HP2
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base1_addr to HP2 for directive DPUCZDX8G_2.M_AXI_HP0:HP2
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base2_addr to HP2 for directive DPUCZDX8G_2.M_AXI_HP0:HP2
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base3_addr to HP2 for directive DPUCZDX8G_2.M_AXI_HP0:HP2
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base4_addr to HP3 for directive DPUCZDX8G_2.M_AXI_HP2:HP3
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base5_addr to HP3 for directive DPUCZDX8G_2.M_AXI_HP2:HP3
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base6_addr to HP3 for directive DPUCZDX8G_2.M_AXI_HP2:HP3
+INFO: [CFGEN 83-2228] Creating mapping for argument DPUCZDX8G_2.dpu_base7_addr to HP3 for directive DPUCZDX8G_2.M_AXI_HP2:HP3
+INFO: [SYSTEM_LINK 82-37] [18:00:19] cfgen finished successfully
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1629.977 ; gain = 0.000 ; free physical = 7526 ; free virtual = 12213
+INFO: [SYSTEM_LINK 82-52] Create top-level block diagram
+INFO: [SYSTEM_LINK 82-38] [18:00:19] cf2bd started: /tools/Xilinx/Vitis/2020.2/bin/cf2bd  --linux --trace_buffer 1024 --input_file /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/cfgraph/cfgen_cfgraph.xml --ip_db /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/_sysl/.cdb/xd_ip_db.xml --cf_name dr --working_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/_sysl/.xsd --temp_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link --output_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int
+INFO: [CF2BD 82-31] Launching cf2xd: cf2xd -linux -trace-buffer 1024 -i /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/cfgraph/cfgen_cfgraph.xml -r /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o dr.xml
+INFO: [CF2BD 82-28] cf2xd finished successfully
+INFO: [CF2BD 82-31] Launching cf_xsd: cf_xsd -disable-address-gen -dn dr -dp /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/sys_link/_sysl/.xsd
+INFO: [CF2BD 82-28] cf_xsd finished successfully
+INFO: [SYSTEM_LINK 82-37] [18:00:21] cf2bd finished successfully
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1629.977 ; gain = 0.000 ; free physical = 7519 ; free virtual = 12212
+INFO: [v++ 60-1441] [18:00:22] Run run_link: Step system_link: Completed
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:13 . Memory (MB): peak = 1585.828 ; gain = 0.000 ; free physical = 7556 ; free virtual = 12252
+INFO: [v++ 60-1443] [18:00:22] Run run_link: Step cf2sw: Started
+INFO: [v++ 60-1453] Command Line: cf2sw -sdsl /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/sdsl.dat -rtd /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/cf2sw.rtd -nofilter /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/cf2sw_full.rtd -xclbin /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/xclbin_orig.xml -o /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/xclbin_orig.1.xml
+INFO: [v++ 60-1454] Run Directory: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/run_link
+INFO: [v++ 60-1441] [18:00:24] Run run_link: Step cf2sw: Completed
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1585.828 ; gain = 0.000 ; free physical = 7554 ; free virtual = 12252
+INFO: [v++ 60-1443] [18:00:24] Run run_link: Step rtd2_system_diagram: Started
+INFO: [v++ 60-1453] Command Line: rtd2SystemDiagram
+INFO: [v++ 60-1454] Run Directory: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/run_link
+INFO: [v++ 60-1441] [18:00:26] Run run_link: Step rtd2_system_diagram: Completed
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:01 . Memory (MB): peak = 1585.828 ; gain = 0.000 ; free physical = 7235 ; free virtual = 11947
+INFO: [v++ 60-1443] [18:00:26] Run run_link: Step vpl: Started
+INFO: [v++ 60-1453] Command Line: vpl -t hw -f /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/dpu/dpu.xpfm --remote_ip_cache /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/ip_cache -s --output_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int --log_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/logs/link --report_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/reports/link --config /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/vplConfig.ini -k /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link --no-info --iprepo /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/xo/ip_repo/xilinx_com_RTLKernel_DPUCZDX8G_1_0 --messageDb /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/run_link/vpl.pb /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/dr.bd.tcl
+INFO: [v++ 60-1454] Run Directory: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/run_link
+
+****** vpl v2020.2 (64-bit)
+  **** SW Build (by xbuild) on 2020-11-18-05:13:29
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+INFO: [VPL 60-839] Read in kernel information from file '/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/int/kernel_info.dat'.
+WARNING: [VPL 60-1495] Deprecated parameter found: compiler.userPostSysLinkTcl. Please use this replacement parameter instead: compiler.userPostDebugProfileOverlayTcl
+INFO: [VPL 60-423]   Target device: dpu
+INFO: [VPL 60-1032] Extracting hardware platform to /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/vivado/vpl/.local/hw_platform
+WARNING: /tools/Xilinx/Vitis/2020.2/tps/lnx64/jre9.0.4 does not exist.
+[18:00:39] Run vpl: Step create_project: Started
+Creating Vivado project.
+[18:00:45] Run vpl: Step create_project: Completed
+[18:00:45] Run vpl: Step create_bd: Started
+[18:00:58] Run vpl: Step create_bd: Completed
+[18:00:58] Run vpl: Step update_bd: Started
+[18:01:09] Run vpl: Step update_bd: Failed
+[18:01:09] Run vpl: FINISHED. Run Status: update_bd ERROR
+
+===>The following messages were generated while  creating FPGA bitstream. Log file: /home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/vivado/vpl/runme.log :
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /interconnect_axifull/s01_couplers/s01_regslice/S_AXI(299997000) and /DPUCZDX8G_1/M_AXI_GP0(300000000)
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /ps_e_0/S_AXI_HP0_FPD(299997000) and /DPUCZDX8G_1/M_AXI_HP0(300000000)
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /ps_e_0/S_AXI_HP1_FPD(299997000) and /DPUCZDX8G_1/M_AXI_HP2(300000000)
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /interconnect_axifull/s02_couplers/s02_regslice/S_AXI(299997000) and /DPUCZDX8G_2/M_AXI_GP0(300000000)
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /ps_e_0/S_AXI_HP2_FPD(299997000) and /DPUCZDX8G_2/M_AXI_HP0(300000000)
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /ps_e_0/S_AXI_HP3_FPD(299997000) and /DPUCZDX8G_2/M_AXI_HP2(300000000)
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /DPUCZDX8G_1/S_AXI_CONTROL(300000000) and /interconnect_axilite/m01_couplers/m01_regslice/M_AXI(299997000)
+ERROR: [VPL 41-237] Bus Interface property FREQ_HZ does not match between /DPUCZDX8G_2/S_AXI_CONTROL(300000000) and /interconnect_axilite/m02_couplers/m02_regslice/M_AXI(299997000)
+ERROR: [VPL 41-238] Port/Pin property FREQ_HZ does not match between /DPUCZDX8G_1/aclk(300000000) and /clk_wiz_0/clk_out2(299997000)
+ERROR: [VPL 41-238] Port/Pin property FREQ_HZ does not match between /DPUCZDX8G_2/aclk(300000000) and /clk_wiz_0/clk_out2(299997000)
+ERROR: [VPL 41-238] Port/Pin property FREQ_HZ does not match between /DPUCZDX8G_1/ap_clk_2(600000000) and /clk_wiz_0/clk_out7(599994000)
+ERROR: [VPL 41-238] Port/Pin property FREQ_HZ does not match between /DPUCZDX8G_2/ap_clk_2(600000000) and /clk_wiz_0/clk_out7(599994000)
+ERROR: [VPL 60-773] In '/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/vivado/vpl/vivado.log', caught Tcl error:  ERROR: [Common 17-39] 'validate_bd_design' failed due to earlier errors.
+WARNING: [VPL 60-732] Link warning: No monitor points found for BD automation.
+ERROR: [VPL 60-704] Integration error, Step failed: update_bd An error stack with function names and arguments may be available in the 'vivado.log'.
+ERROR: [VPL 60-1328] Vpl run 'vpl' failed
+WARNING: [VPL 60-1142] Unable to read data from '/home/gabriele/Desktop/DPU-PYNQ/boards/ZCU104/binary_container_1/link/vivado/vpl/output/generated_reports.log', generated reports will not be copied.
+ERROR: [VPL 60-806] Failed to finish platform linker
+INFO: [v++ 60-1442] [18:01:09] Run run_link: Step vpl: Failed
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:43 . Memory (MB): peak = 1585.828 ; gain = 0.000 ; free physical = 6740 ; free virtual = 11612
+ERROR: [v++ 60-661] v++ link run 'run_link' failed
+ERROR: [v++ 60-626] Kernel link failed to complete
+ERROR: [v++ 60-703] Failed to finish linking
+INFO: [v++ 60-1653] Closing dispatch client.
+Makefile:122: recipe for target 'dpu.xclbin' failed
+make: *** [dpu.xclbin] Error 1
+

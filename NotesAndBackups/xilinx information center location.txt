@@ -1,0 +1,3 @@
+gabriele@gabriele-PC:/tools/Xilinx/xic$ sudo ./xic
+
+sudo /tools/Xilinx/xic/xic

@@ -1,0 +1,55 @@
+(vitis-ai-tensorflow) Vitis-AI /workspace/ThesisData > python VitisAI_quantize_and_compile_no_zoo_model_flow.py -c -d B1024 -m mobilenet_v1_1.0_224
+************************************
+INPUT PARAMETERS:
+        model: mobilenet_v1_1.0_224
+        DPU: B1024
+        Output Layer: MobilenetV1/Predictions/Reshape
+        Execute quantization: False
+        Execute compilation: True
+************************************
+Op types used: 138 Const, 138 Identity, 27 FusedBatchNorm, 27 Relu6, 15 Conv2D, 13 DepthwiseConv2dNative, 2 Reshape, 1 AvgPool, 1 BiasAdd, 1 Placeholder, 1 Shape, 1 Softmax, 1 Squeeze
+
+Found 1 possible inputs: (name=input, type=float(1), shape=[?,224,224,3]) 
+Found 1 possible outputs: (name=MobilenetV1/Predictions/Reshape_1, op=Reshape) 
+
+[INFO] parse raw model     :100%|██████████████████████████| 122/122 [00:00<00:00, 9486.91it/s]              
+[INFO] infer shape (NHWC)  :100%|██████████████████████████| 97/97 [00:00<00:00, 12676.75it/s]               
+[INFO] infer shape (NHWC)  :100%|██████████████████████████| 97/97 [00:00<00:00, 6258.23it/s]                
+[INFO] generate xmodel     :100%|██████████████████████████| 97/97 [00:00<00:00, 1307.83it/s]                
+[UNILOG][INFO] The compiler log will be dumped at "/tmp/vitis-ai-user/log/xcompiler-20220718-133438-1711"
+[UNILOG][INFO] Compile mode: dpu
+[UNILOG][INFO] Debug mode: function
+[UNILOG][INFO] Target architecture: DPUCZDX8G_CUSTOMIZED
+[UNILOG][INFO] Graph name: quantize_eval_model, with op num: 209
+[UNILOG][INFO] Begin to compile...
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] [XCOM_TILING_FAIL][There is not enough bank space for the tensor][]
+[UNILOG][INFO] Total device subgraph number 3, DPU subgraph number 1
+[UNILOG][INFO] Compile done.
+[UNILOG][INFO] The meta json is saved to "/workspace/ThesisData/./vai_compiled_models/B1024/mobilenet_v1_1.0_224_B1024/meta.json"
+[UNILOG][INFO] The compiled xmodel is saved to "/workspace/ThesisData/./vai_compiled_models/B1024/mobilenet_v1_1.0_224_B1024/mobilenet_v1_1.0_224_B1024.xmodel"
+[UNILOG][INFO] The compiled xmodel's md5sum is 8aa0421e5fc860080fe3b6eb80923801, and been saved to "/workspace/ThesisData/./vai_compiled_models/B1024/mobilenet_v1_1.0_224_B1024/md5sum.txt"
+[INFO] Namespace(inputs_shape=None, layout='NHWC', model_files=['./vai_quant_models/mobilenet_v1_1.0_224/quantize_eval_model.pb'], model_type='tensorflow', out_filename='./vai_compiled_models/B1024/mobilenet_v1_1.0_224_B1024/mobilenet_v1_1.0_224_B1024_org.xmodel', proto=None)
+[INFO] tensorflow model: vai_quant_models/mobilenet_v1_1.0_224/quantize_eval_model.pb
+[INFO] generate xmodel: /workspace/ThesisData/vai_compiled_models/B1024/mobilenet_v1_1.0_224_B1024/mobilenet_v1_1.0_224_B1024_org.xmodel
+**************************************************
+* VITIS_AI Compilation - Xilinx Inc.
+**************************************************
+
+Script timing:
+        Inspecting frozen graph time: 4.134 s
+        Compiling time: 16.235 s

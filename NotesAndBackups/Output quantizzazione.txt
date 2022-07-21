@@ -1,0 +1,135 @@
+(vitis-ai-tensorflow) Vitis-AI /workspace/ThesisData > python VitisAI_quantize_and_compile_no_zoo_model_flow.py --model mobilenet_v1_0.25_128 --dpu B3136 -q
+************************************
+INPUT PARAMETERS:
+        model: mobilenet_v1_0.25_128
+        DPU: B3136
+        Execute quantization: True
+************************************
+Op types used: 138 Const, 138 Identity, 27 FusedBatchNorm, 27 Relu6, 15 Conv2D, 13 DepthwiseConv2dNative, 2 Reshape, 1 AvgPool, 1 BiasAdd, 1 Placeholder, 1 Shape, 1 Softmax, 1 Squeeze
+
+Found 1 possible inputs: (name=input, type=float(1), shape=[?,128,128,3]) 
+Found 1 possible outputs: (name=MobilenetV1/Predictions/Reshape_1, op=Reshape) 
+
+Start preprocessing the calibration images
+End preprocessing the calibration images
+Saving 1024 images in ./PreprocessCalibImages/calib_data.npz
+...
+Saving with success on disk
+Loading, preprocessing and storing images time: 7.799 s
+100% (32 of 32) |########################| Elapsed Time: 0:01:00 Time:  0:01:00
+2022-07-01 02:48:45.189311: W tensorflow/contrib/decent_q/utils/deploy_quantized_graph.cc:1734] [DECENT_WARNING] Node MobilenetV1/Predictions/Reshape_1(Type: Reshape) is not quantized and cannot be deployed to DPU,because it has unquantized input node: MobilenetV1/Predictions/Softmax. Please deploy it on CPU.
+INFO: Checking Float Graph...
+INFO: Float Graph Check Done.
+INFO: Calibrating for 32 iterations...
+INFO: Calibration Done.
+INFO: Generating Deploy Model...
+INFO: Deploy Model Generated.
+********************* Quantization Summary *********************      
+INFO: Output:       
+  quantize_eval_model: ./vai_quant_models/mobilenet_v1_0.25_128/quantize_eval_model.pb       
+  deploy_model: ./vai_quant_models/mobilenet_v1_0.25_128/deploy_model.pb
+
+[INFO] parse raw model     :100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 121/121 [00:00<00:00, 8358.90it/s]              
+[INFO] infer shape (NHWC)  :100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 95/95 [00:00<00:00, 7928.27it/s]                
+[INFO] infer shape (NHWC)  :100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 95/95 [00:00<00:00, 16639.20it/s]               
+[INFO] generate xmodel     :100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 95/95 [00:00<00:00, 2350.80it/s]                
+[UNILOG][INFO] The compiler log will be dumped at "/tmp/vitis-ai-user/log/xcompiler-20220701-024846-193"
+[UNILOG][INFO] Compile mode: dpu
+[UNILOG][INFO] Debug mode: function
+[UNILOG][INFO] Target architecture: DPUCZDX8G_ISA0_B3136_MAX_BG2
+[UNILOG][INFO] Graph name: quantize_eval_model, with op num: 207
+[UNILOG][INFO] Begin to compile...
+[UNILOG][INFO] Total device subgraph number 3, DPU subgraph number 1
+[UNILOG][INFO] Compile done.
+[UNILOG][INFO] The meta json is saved to "/workspace/ThesisData/./vai_compiled_models/B3136/mobilenet_v1_0.25_128_B3136/meta.json"
+[UNILOG][INFO] The compiled xmodel is saved to "/workspace/ThesisData/./vai_compiled_models/B3136/mobilenet_v1_0.25_128_B3136/mobilenet_v1_0.25_128_B3136.xmodel"
+[UNILOG][INFO] The compiled xmodel's md5sum is 4cd83f2649d7431746805c51ec779a11, and been saved to "/workspace/ThesisData/./vai_compiled_models/B3136/mobilenet_v1_0.25_128_B3136/md5sum.txt"
+[INFO] Namespace(inputs_shape=None, layout='NHWC', model_files=['./vai_quant_models/mobilenet_v1_0.25_128/quantize_eval_model.pb'], model_type='tensorflow', out_filename='./vai_compiled_models/B3136/mobilenet_v1_0.25_128_B3136/mobilenet_v1_0.25_128_B3136_org.xmodel', proto=None)
+[INFO] tensorflow model: vai_quant_models/mobilenet_v1_0.25_128/quantize_eval_model.pb
+[INFO] generate xmodel: /workspace/ThesisData/vai_compiled_models/B3136/mobilenet_v1_0.25_128_B3136/mobilenet_v1_0.25_128_B3136_org.xmodel
+**************************************************
+* VITIS_AI Compilation - Xilinx Inc.
+**************************************************
+
+Script timing:
+        Inspecting frozen graph time: 4.075 s
+        Quantize time: 67.258 s
+        Compiling time: 4.49 s
+
+
+**************************************************************************************************************************************************************************************************************
+OUPUT CON OUTPUT LAYER: MobilenetV1/Logits/SpatialSqueeze
+
+(vitis-ai-tensorflow) Vitis-AI /workspace/ThesisData > python VitisAI_quantize_and_compile_no_zoo_model_flow.py -q -m mobilenet_v1_0.25_128
+************************************
+INPUT PARAMETERS:
+        model: mobilenet_v1_0.25_128
+        DPU: B4096
+        Execute quantization: True
+        Execute compilation: False
+************************************
+Op types used: 138 Const, 138 Identity, 27 FusedBatchNorm, 27 Relu6, 15 Conv2D, 13 DepthwiseConv2dNative, 2 Reshape, 1 AvgPool, 1 BiasAdd, 1 Placeholder, 1 Shape, 1 Softmax, 1 Squeeze
+
+Found 1 possible inputs: (name=input, type=float(1), shape=[?,128,128,3]) 
+Found 1 possible outputs: (name=MobilenetV1/Predictions/Reshape_1, op=Reshape) 
+
+Start preprocessing the calibration images
+End preprocessing the calibration images
+Saving 1024 images in ./PreprocessCalibImages/calib_data.npz
+...
+Saving with success on disk
+Loading, preprocessing and storing images time: 8.026 s
+100% (32 of 32) |########################| Elapsed Time: 0:01:01 Time:  0:01:01
+INFO: Checking Float Graph...
+INFO: Float Graph Check Done.
+INFO: Calibrating for 32 iterations...
+INFO: Calibration Done.
+INFO: Generating Deploy Model...
+INFO: Deploy Model Generated.
+********************* Quantization Summary *********************      
+INFO: Output:       
+  quantize_eval_model: ./vai_quant_models/mobilenet_v1_0.25_128/quantize_eval_model.pb       
+  deploy_model: ./vai_quant_models/mobilenet_v1_0.25_128/deploy_model.pb
+
+Script timing:
+        Inspecting frozen graph time: 9.455 s
+        Quantize time: 67.767 s
+
+***************************************************************************************************************************************************************************************************************
+
+(vitis-ai-tensorflow) Vitis-AI /workspace/ThesisData > python VitisAI_quantize_and_compile_no_zoo_model_flow.py -q -m mobilenet_v1_0.25_128 -o MobilenetV1/Predictions/Reshape
+************************************
+INPUT PARAMETERS:
+        model: mobilenet_v1_0.25_128
+        DPU: B4096
+        Output Layer: MobilenetV1/Predictions/Reshape
+        Execute quantization: True
+        Execute compilation: False
+************************************
+Op types used: 138 Const, 138 Identity, 27 FusedBatchNorm, 27 Relu6, 15 Conv2D, 13 DepthwiseConv2dNative, 2 Reshape, 1 AvgPool, 1 BiasAdd, 1 Placeholder, 1 Shape, 1 Softmax, 1 Squeeze
+
+Found 1 possible inputs: (name=input, type=float(1), shape=[?,128,128,3]) 
+Found 1 possible outputs: (name=MobilenetV1/Predictions/Reshape_1, op=Reshape) 
+
+Start preprocessing the calibration images
+End preprocessing the calibration images
+Saving 1024 images in ./PreprocessCalibImages/calib_data.npz
+...
+Saving with success on disk
+Loading, preprocessing and storing images time: 6.594 s
+100% (32 of 32) |########################| Elapsed Time: 0:01:01 Time:  0:01:01
+INFO: Checking Float Graph...
+INFO: Float Graph Check Done.
+INFO: Calibrating for 32 iterations...
+INFO: Calibration Done.
+INFO: Generating Deploy Model...
+INFO: Deploy Model Generated.
+********************* Quantization Summary *********************      
+INFO: Output:       
+  quantize_eval_model: ./vai_quant_models/mobilenet_v1_0.25_128/quantize_eval_model.pb       
+  deploy_model: ./vai_quant_models/mobilenet_v1_0.25_128/deploy_model.pb
+
+Script timing:
+        Inspecting frozen graph time: 4.05 s
+        Quantize time: 67.156 s
+(vitis-ai-tensorflow) Vitis-AI /workspace/ThesisData > 
