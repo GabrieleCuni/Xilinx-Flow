@@ -31,26 +31,22 @@ import sys
 import random
 
 def load_and_preprocess(imageSize):
-    images = os.listdir("./calibration_images/ILSVRC/Data/DET/test")
+    images = os.listdir(os.path.join("calibration_images","ILSVRC2012_img_val"))
     random.shuffle(images)
     images = images[:1024]
 
     preprocessed_images = []
     print("Start preprocessing the calibration images")
     for i in images:
-        img = cv2.imread(os.path.join("./calibration_images/ILSVRC/Data/DET/test/",i))
+        img = cv2.imread(os.path.join("calibration_images", "ILSVRC2012_img_val", i))
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        # img = preprocess.resize_shortest_edge(img, imageSize)
-        # img = preprocess.central_crop(img, imageSize, imageSize)
-        # img = preprocess.tf_imagenet_preprocess(img)
-        # # img = np.expand_dims(img, axis=0)
         img = preprocess.finalPreprocess(image=img, height=imageSize, width=imageSize)
         preprocessed_images.append(img)
     print("End preprocessing the calibration images")
 
     print(f"Saving {len(preprocessed_images)} images in ./PreprocessCalibImages/calib_data.npz")
     print("...")
-    np.savez('./PreprocessCalibImages/calib_data.npz', data = preprocessed_images)
+    np.savez(os.path.join("PreprocessCalibImages","calib_data.npz"), data = preprocessed_images)
     print("Saving with success on disk")
 
 modelList = [
@@ -93,8 +89,6 @@ t1 = time.time()
 
 if args.quantize:
     imageSize = int(args.model.split("_")[3])
-    # if os.path.exists("./PreprocessCalibImages") is False:
-    #     os.mkdir("./PreprocessCalibImages")
     t6 = time.time()
     load_and_preprocess(imageSize)
     t7 = time.time()

@@ -44,14 +44,6 @@ def finalPreprocess(image, height, width):
 
     return image
 
-def desperatePreprocess(image, height, width): 
-    image = central_crop_percent(image)
-    image = cv2.resize(image,(width,height), interpolation=cv2.INTER_LINEAR)
-    image = np.subtract(image, 0.5)
-    image = np.multiply(image, 2.0)
-
-    return image
-
 
 # image, 224,224. The other params must be the default ones.
 def preprocess_for_eval(image,
