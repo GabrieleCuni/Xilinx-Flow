@@ -3,9 +3,15 @@ import random
 import os
 import cv2
 import preprocess
+import json
 import numpy as np
 import tensorflow as tf
 import tensorflow.contrib.decent_q
+
+with open(os.path.join("calibration_images","imagenet_class_index.json")) as fp:
+    classIndex = json.load(fp)
+
+print(classIndex["66"])
 
 GroudTruthFile = os.path.join("calibration_images","ILSVRC2012_validation_ground_truth.txt")
 
@@ -17,10 +23,18 @@ def getImageNumber(image_name):
 
 # the image is a Snake on a beach/sand field
 img = cv2.imread(os.path.join("./calibration_images/ILSVRC2012_img_val","ILSVRC2012_val_00000001.JPEG"))
-img = preprocess.resize_shortest_edge(img, 224)
-img = preprocess.central_crop(img, 224, 224)
-img = preprocess.tf_imagenet_preprocess(img)
+# Converting BGR color to RGB color format
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+# img = tf.keras.preprocessing.image.load_img(os.path.join("./calibration_images/ILSVRC2012_img_val","ILSVRC2012_val_00000001.JPEG"))
+# img = tf.io.decode_jpeg(img, channels=0)
+# img = tf.image.decode_png(tf.io.read_file(os.path.join("./calibration_images/ILSVRC2012_img_val","ILSVRC2012_val_00000001.JPEG")))
+# img = preprocess.resize_shortest_edge(img, 224)
+# img = preprocess.central_crop(img, 224, 224)
+# img = preprocess.tf_imagenet_preprocess(img)
+img = preprocess.finalPreprocess(image=img, height=224, width=224)
 img = np.expand_dims(img, axis=0)
+# img = preprocess.preprocess_for_eval(img,224,224)
+# img = tf.train.batch(img,1)
 groundTruth  = mapping[getImageNumber("ILSVRC2012_val_00000001.JPEG")-1]
 
 tf.compat.v1.reset_default_graph()

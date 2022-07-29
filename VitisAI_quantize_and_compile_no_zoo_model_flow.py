@@ -39,10 +39,12 @@ def load_and_preprocess(imageSize):
     print("Start preprocessing the calibration images")
     for i in images:
         img = cv2.imread(os.path.join("./calibration_images/ILSVRC/Data/DET/test/",i))
-        img = preprocess.resize_shortest_edge(img, imageSize)
-        img = preprocess.central_crop(img, imageSize, imageSize)
-        img = preprocess.tf_imagenet_preprocess(img)
-        # img = np.expand_dims(img, axis=0)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        # img = preprocess.resize_shortest_edge(img, imageSize)
+        # img = preprocess.central_crop(img, imageSize, imageSize)
+        # img = preprocess.tf_imagenet_preprocess(img)
+        # # img = np.expand_dims(img, axis=0)
+        img = preprocess.finalPreprocess(image=img, height=imageSize, width=imageSize)
         preprocessed_images.append(img)
     print("End preprocessing the calibration images")
 
