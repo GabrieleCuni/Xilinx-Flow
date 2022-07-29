@@ -7,7 +7,7 @@ import tensorflow as tf
 
 """ ./docker_run.sh xilinx/vitis-ai:1.3.411 """
 
-model = tf.keras.applications.MobileNet()
+model = tf.keras.applications.MobileNet(alpha=0.25, input_shape=(224,224,3))
 
 image = cv2.imread('./calibration_images/ILSVRC2012_img_val/ILSVRC2012_val_00000001.JPEG')
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -20,7 +20,7 @@ print(result)
 print(preds.shape)
 print(np.argmax(preds, axis=1))
 
-# # print(model.summary())
+# print(model.summary())
 
 # model.save("./tf_models/my_mobilenet")
 
