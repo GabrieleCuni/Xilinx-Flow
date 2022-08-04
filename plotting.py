@@ -14,7 +14,7 @@ from matplotlib import pyplot as plt
 Xs: Latency
 Ys: Accuracy
 """
-def plot_pareto_frontier(dpu, Xs, Ys, labels, maxX=True, maxY=True):
+def plot_pareto_frontier(title, Xs, Ys, labels, yLabel, maxX=True, maxY=True):
     '''Pareto frontier selection process'''
     sorted_list = sorted([[Xs[i], Ys[i], labels[i]] for i in range(len(Xs))], reverse=maxY)
     pareto_front = [sorted_list[0]]
@@ -38,10 +38,10 @@ def plot_pareto_frontier(dpu, Xs, Ys, labels, maxX=True, maxY=True):
     for x,y,label in zip(pf_X, pf_Y, pf_labels):
         plt.text(x, y, label)
     plt.xlabel("FPS")
-    plt.ylabel("Accuracy")
-    plt.title(dpu)
+    plt.ylabel(yLabel)
+    plt.title(title)
     plt.grid()
-    plt.savefig(os.path.join(plotPath, dpu))
+    plt.savefig(os.path.join(plotPath, title) + ".png")
     plt.show()
 
 def plotLatencyVsAccuracy(dpu, latencyData, accuracyData):
@@ -57,7 +57,21 @@ def plotLatencyVsAccuracy(dpu, latencyData, accuracyData):
                 Xs.append(getFPS(latency))
                 Ys.append(accuracyData.loc[alpha, imageSize])
                 labels.append((alpha, imageSize))
-    plot_pareto_frontier(dpu, Xs, Ys, labels)
+    plot_pareto_frontier(dpu, Xs, Ys, labels, "Accuracy")
+
+def plotLUTvsFPS(alpha, imageSize, dpuList,latencyData, lutData):
+    # print(int(lutData["B4096"]))
+    Xs = []
+    Ys = []
+    labels = []
+    for dpu in dpuList:
+        latency = latencyData[dpu].loc[str(alpha), str(imageSize)]
+        if not np.isnan(latency):
+            Xs.append(getFPS(latency))
+            Ys.append(int(lutData[dpu]))
+            labels.append(dpu)
+    title = f"mobilenet_v1_{alpha}_{imageSize}"
+    plot_pareto_frontier(title, Xs, Ys, labels, "LUT")
 
 def readCsv(dataPath):
     with open(dataPath, newline="") as csvFile:
@@ -93,30 +107,60 @@ def getAccuracyData(fileName):
     
     return dataFrame
 
+def getLutData(lutFileName):
+    dataPath = os.path.join("PlotData", lutFileName)
+
+    return pd.read_csv(dataPath)
+
 def getFPS(latency):
     fps = 1 / latency
     return int(fps)
 
 def main():
     nameList = ["B4096_latency.csv", "B3136_latency.csv", "B2304_latency.csv", "B1600_latency.csv", "B1152_latency.csv", "B1024_latency.csv", "B800_latency.csv", "B512_latency.csv", ]
+    dpuList = []
+    for name in nameList:
+        dpuList.append(name.split("_")[0])
     accuracyFileName = "accuracyQuantizedModels.csv"
+    lutFileName = "LUTperDPU.csv"
     global plotPath
     plotPath = os.path.join("PlotData", "Plots") 
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--imageSize", type=int, default=224)
+    parser.add_argument("-a", "--alpha", type=float, default=1.0)
     parser.add_argument("-d", "--dpu", type=str, default="B4096")
     parser.add_argument("-s", "--plotSize", type=float, default=5.2)
+    parser.add_argument("-l", "--lut", action='store_true')
     args = parser.parse_args()
 
     global bPlotSize
     bPlotSize = args.plotSize
 
-    latencyData = getLatencyData(nameList)
+    if not args.lut:
+        print("************************************")
+        print("INPUT PARAMETERS:")
+        print(f"\tDPU: {args.dpu}")
+        print(f"\tPlot Accuracy vs FPS: {not args.lut}")
+        print(f"\tPlot LUT vs FPS: {args.lut}")
+        print("************************************")
 
-    accuracyData = getAccuracyData(accuracyFileName)
+        latencyData = getLatencyData(nameList)
+        accuracyData = getAccuracyData(accuracyFileName)
+        plotLatencyVsAccuracy(args.dpu, latencyData, accuracyData)
 
-    plotLatencyVsAccuracy(args.dpu, latencyData, accuracyData)
+    if args.lut:
+        print("************************************")
+        print("INPUT PARAMETERS:")
+        print(f"\tAlpha: {args.alpha}")
+        print(f"\tImage Size: {args.imageSize}")
+        print(f"\tPlot Accuracy vs FPS: {not args.lut}")
+        print(f"\tPlot LUT vs FPS: {args.lut}")
+        print("************************************")
 
+        latencyData = getLatencyData(nameList)
+        lutData = getLutData(lutFileName)
+        plotLUTvsFPS(args.alpha, args.imageSize, dpuList, latencyData, lutData) 
 
     # printAllLatencyData(latencyData, nameList)
 
