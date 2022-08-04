@@ -11,6 +11,8 @@ import tensorflow.contrib.decent_q
 
 """
 jupyter notebook --ip=0.0.0.0 --port=8080
+
+./docker_run.sh xilinx/vitis-ai:1.3.411
 """
 
 def test_calibration(x_test, y_test, y_label):
