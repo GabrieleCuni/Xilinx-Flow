@@ -1,45 +1,73 @@
 import os 
 import argparse
+import time
+import sys
 from myUtils import DatasetGenerator
 import tensorflow as tf
 from tensorflow_model_optimization.quantization.keras import vitis_quantize
 
-def getDataset(path, alpha, imageSize, start, stop):
+"""
+./docker_run.sh xilinx/vitis-ai:1.3.411
+
+Attention to 1/31 [..............................] - ETA: 0sKilled that means the RAM is not enougth
+"""
+
+def getDataset(path, imageSize, start, stop):
     datasetPath = os.path.join(path, f"dataset_{imageSize}_{start}_{stop}")
     if not os.path.exists(datasetPath):
+        t0 = time.time()
         print("\nStart make dataset")
+        print(path)
+        print(f"Start image index: {start}")
+        print(f"Stop image index: {stop}")
+        print(f"imageSize: {imageSize}")
         datasetGenerator = DatasetGenerator(batch_size=32, startImageNumber=start, stopImageNumber=stop, width=imageSize, height=imageSize)
         batchedDataset = datasetGenerator.make_dataset()
+        # print(f"Number of images: {len(batchedDataset)}")
+        # print(f"Dataset spec: {batchedDataset.element_spec}") # (TensorSpec(shape=(32,), dtype=tf.float32, name=None), TensorSpec(shape=(32,), dtype=tf.float32, name=None))
         print("\nStop make dataset")
         print("Saving dataset on disk")
         tf.data.experimental.save(batchedDataset, datasetPath)
-        print("Dataset saved on disk")
+        t1 = time.time()
+        print(f"Dataset saved on disk. Time: {t1-t0}")
+        
     else:
         print("Loading Dataset from disk")
-        batchedDataset = tf.data.experimental.load(datasetPath)
-        print("Dataset loaded")
+        t0 = time.time()
+        batchedDataset = tf.data.experimental.load(datasetPath, element_spec=(tf.TensorSpec(shape=[32,imageSize,imageSize,3], dtype=tf.float32), tf.TensorSpec(shape=[32,1], dtype=tf.float32)))
+        print(f"Number of images: {len(batchedDataset)}")
+        t1 = time.time()
+        print(f"Dataset loaded. Time: {t1-t0}")
 
     return batchedDataset
 
 def quantization(model, preprocessQuantDataPath, alpha, imageSize, start, stop):
-    batchedQuantDataset = getDataset(preprocessQuantDataPath, alpha, imageSize, start, stop)
+    batchedQuantDataset = getDataset(preprocessQuantDataPath, imageSize, start, stop)
 
+    print("Start Quantization")
+    t0 = time.time()
     quantizer = vitis_quantize.VitisQuantizer(model)
     quantized_model = quantizer.quantize_model(calib_dataset=batchedQuantDataset)
     quantized_model.save(os.path.join("tf2_vai_quant_models",f"quantized_mobilenet_{alpha}_{imageSize}.h5"))
+    t1 = time.time()
+    print(f"Stop Quantization. Time: {t1-t0}")
 
 def validation(preprocessValDataPath, alpha, imageSize, start, stop):
-    batchedValidationDataset = getDataset(preprocessValDataPath, alpha, imageSize, start, stop)
+    batchedValidationDataset = getDataset(preprocessValDataPath, imageSize, start, stop)
 
+    print("Start Validation")
+    t0 = time.time()
     with vitis_quantize.quantize_scope():
         modelPath = os.path.join("tf2_vai_quant_models",f"quantized_mobilenet_{alpha}_{imageSize}.h5")
         quantized_model = tf.keras.models.load_model(modelPath)
 
     quantized_model.compile(	
         loss=tf.keras.losses.SparseCategoricalCrossentropy(),
-        metrics= tf.keras.metrics.SparseTopKCategoricalAccuracy())
+        metrics= tf.keras.metrics.SparseTopKCategoricalAccuracy()) # Attenzione sto facendo il top 5 accuracy!!!
     print("Validation accuracy:")
     quantized_model.evaluate(batchedValidationDataset, verbose=2)
+    t1 = time.time()
+    print(f"Stop Validation. Time: {t1-t0}")
     
 
 def main():

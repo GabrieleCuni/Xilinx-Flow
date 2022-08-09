@@ -81,10 +81,10 @@ class DatasetGenerator:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             image = self._central_crop(image)
             image = self._standardization(image)
-            if image.shape == (224, 224, 3):
+            if image.shape == (self.width, self.height, 3):
                 preprocessed_images.append(image)
                 labels.append(self._getLabel(imageName))
-                
+        print(f"MyUtils.py - Number of images: {len(preprocessed_images)}")
         dataset = tf.data.Dataset.from_tensor_slices((preprocessed_images, labels))
         dataset = dataset.batch(self.batch_size, drop_remainder=True)
 
