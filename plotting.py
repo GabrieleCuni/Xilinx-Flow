@@ -14,7 +14,7 @@ from matplotlib import pyplot as plt
 Xs: Latency
 Ys: Accuracy
 """
-def plot_pareto_frontier(title, Xs, Ys, labels, yLabel, maxX=True, maxY=True):
+def plot_pareto_frontier(title, Xs, Ys, labels, yLabel, xLabel, maxX=True, maxY=True):
     '''Pareto frontier selection process'''
     sorted_list = sorted([[Xs[i], Ys[i], labels[i]] for i in range(len(Xs))], reverse=maxY)
     pareto_front = [sorted_list[0]]
@@ -44,6 +44,23 @@ def plot_pareto_frontier(title, Xs, Ys, labels, yLabel, maxX=True, maxY=True):
     plt.savefig(os.path.join(plotPath, title) + ".png")
     plt.show()
 
+# def plotLUTvsAccuracy(dputList, latencyData, accuracyData, lutData):
+#     columnsList = ["224","192","160","128"]
+#     indexList = ["1.0","0.75","0.5","0.25"]
+#     Xs = []
+#     Ys = []
+#     labels = []
+#     for dpu in dputList:
+#         for alpha in indexList:
+#             for imageSize in columnsList:
+#                 latency = latencyData[dpu].loc[alpha, imageSize]
+#                 if not np.isnan(latency):
+#                     Xs.append(int(lutData[dpu]))
+#                     Ys.append(accuracyData.loc[alpha, imageSize])
+#                     labels.append((alpha, imageSize))
+#     title = f"LUT vs Accuracy"
+#     plot_pareto_frontier(title, Xs, Ys, labels, yLabel="Accuracy", xLabel="LUT")
+
 def plotLatencyVsAccuracy(dpu, latencyData, accuracyData):
     columnsList = ["224","192","160","128"]
     indexList = ["1.0","0.75","0.5","0.25"]
@@ -57,7 +74,7 @@ def plotLatencyVsAccuracy(dpu, latencyData, accuracyData):
                 Xs.append(getFPS(latency))
                 Ys.append(accuracyData.loc[alpha, imageSize])
                 labels.append((alpha, imageSize))
-    plot_pareto_frontier(dpu, Xs, Ys, labels, "Accuracy")
+    plot_pareto_frontier(dpu, Xs, Ys, labels, yLabel="Accuracy", xLabel="FPS")
 
 def plotLUTvsFPS(alpha, imageSize, dpuList,latencyData, lutData):
     # print(int(lutData["B4096"]))
@@ -71,7 +88,25 @@ def plotLUTvsFPS(alpha, imageSize, dpuList,latencyData, lutData):
             Ys.append(int(lutData[dpu]))
             labels.append(dpu)
     title = f"mobilenet_v1_{alpha}_{imageSize}"
-    plot_pareto_frontier(title, Xs, Ys, labels, "LUT")
+    plot_pareto_frontier(title, Xs, Ys, labels, yLabel="LUT", xLabel="FPS")
+
+# def plotLUTvsFPS_alternative(alpha, imageSize, dpuList,latencyData, lutData):
+#     # print(int(lutData["B4096"]))
+#     columnsList = ["224","192","160","128"]
+#     indexList = ["1.0","0.75","0.5","0.25"]
+#     Xs = []
+#     Ys = []
+#     labels = []
+#     for dpu in dpuList:
+#         for alpha in indexList:
+#             for imageSize in columnsList:
+#                 latency = latencyData[dpu].loc[str(alpha), str(imageSize)]
+#                 if not np.isnan(latency):
+#                     Xs.append(getFPS(latency))
+#                     Ys.append(int(lutData[dpu]))
+#                     labels.append(dpu)
+#     title = f"boh"
+#     plot_pareto_frontier(title, Xs, Ys, labels, yLabel="LUT", xLabel="FPS")
 
 def readCsv(dataPath):
     with open(dataPath, newline="") as csvFile:
@@ -160,7 +195,9 @@ def main():
 
         latencyData = getLatencyData(nameList)
         lutData = getLutData(lutFileName)
+        accuracyData = getAccuracyData(accuracyFileName)
         plotLUTvsFPS(args.alpha, args.imageSize, dpuList, latencyData, lutData) 
+        # plotLUTvsAccuracy(dpuList, latencyData, accuracyData, lutData)
 
     # printAllLatencyData(latencyData, nameList)
 
