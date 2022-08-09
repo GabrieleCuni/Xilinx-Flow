@@ -11,7 +11,7 @@ import tensorflow as tf
 from tensorflow_model_optimization.quantization.keras import vitis_quantize
 
 print("\nStart make dataset")
-datasetGenerator = DatasetGenerator(batch_size=32, imageNumber=1048, width=224, height=224)
+datasetGenerator = DatasetGenerator(batch_size=32, startImageNumber=0, stopImageNumber=1024, width=224, height=224)
 batched_dataset = datasetGenerator.make_dataset()
 print("\nStop make dataset")
 

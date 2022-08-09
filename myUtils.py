@@ -6,15 +6,16 @@ import tensorflow as tf
 
 
 class DatasetGenerator:
-    def __init__(self, batch_size, imageNumber, width, height):
+    def __init__(self, batch_size, startImageNumber, stopImageNumber, width, height):
         self.batch_size = batch_size
         self.width = width
         self.height = height
-        self.imageNumber = imageNumber
+        self.startImageNumber = startImageNumber
+        self.stopImageNumber = stopImageNumber
 
     def _getImageNames(self):
         imageNames = os.listdir(os.path.join("calibration_images","ILSVRC2012_img_val"))
-        imageNames = imageNames[:self.imageNumber]
+        imageNames = imageNames[self.startImageNumber:self.stopImageNumber]
 
         return imageNames
 

@@ -38,7 +38,7 @@ from tensorflow_model_optimization.quantization.keras import vitis_quantize
 # batched_dataset = calibrationDataset.batch(32, drop_remainder=True)
 
 print("\nStart make dataset")
-datasetGenerator = DatasetGenerator(batch_size=32, imageNumber=1048, width=224, height=224)
+datasetGenerator = DatasetGenerator(batch_size=32, startImageNumber=1024, stopImageNumber=2048, width=224, height=224)
 batched_dataset = datasetGenerator.make_dataset()
 print("\nStop make dataset")
 
