@@ -66,9 +66,9 @@ class DatasetGenerator:
         groundTruth  = mapping[imageNumber-1]        
         stringToSplit = mapClslocMapping[int(groundTruth)-1]
         imagenetID = stringToSplit.split(" ")[0]
-        # label = stringToSplit.split(" ")[2]
-
         label = list(classIndexDict.keys())[[i[0] for i in list(classIndexDict.values())].index((imagenetID))]
+
+        # print(f"Name: {imageName}, Number: {imageNumber}, GroudTruth: {groundTruth}, imagenetID: {imagenetID}, label: {label}")
 
         return int(label)
 
