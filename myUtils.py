@@ -30,8 +30,9 @@ class DatasetGenerator:
         return image[offset_height:offset_height + crop_height, offset_width:offset_width + crop_width, :]
 
     def _standardization(self, x):
-        if not issubclass(x.dtype.type, np.floating):
-            x = x.astype(float, copy=False)
+        # if not issubclass(x.dtype.type, np.floating):
+        #     x = x.astype(float, copy=False)
+        x = tf.cast(x, tf.float32)
         x /= 127.5
         x -= 1.
         return x
@@ -76,14 +77,40 @@ class DatasetGenerator:
         imageNames = self._getImageNames()
         preprocessed_images = []
         labels = []
-        for imageName in imageNames:            
-            image = cv2.imread(os.path.join("calibration_images","ILSVRC2012_img_val",imageName))
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        for imageName in imageNames:       
+            imagePath = os.path.join("calibration_images","ILSVRC2012_img_val",imageName)     
+            # image = cv2.imread(imagePath)
+            # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = tf.io.read_file(imagePath)
+            image = tf.io.decode_jpeg(image, channels=3)
             image = self._central_crop(image)
             image = self._standardization(image)
             if image.shape == (self.width, self.height, 3):
                 preprocessed_images.append(image)
                 labels.append(self._getLabel(imageName))
+        print(f"MyUtils.py - Number of images: {len(preprocessed_images)}")
+        dataset = tf.data.Dataset.from_tensor_slices((preprocessed_images, labels))
+        dataset = dataset.batch(self.batch_size, drop_remainder=True)
+
+        return dataset
+
+    def make_dataset_without_preprocessing(self):
+        imageNames = self._getImageNames()
+        preprocessed_images = []
+        labels = []
+        for imageName in imageNames:       
+            imagePath = os.path.join("calibration_images","ILSVRC2012_img_val",imageName)     
+            image = tf.io.read_file(imagePath)
+            image = tf.io.decode_jpeg(image, channels=3)
+            # image = self._central_crop(image)    
+            if image.shape[0] > self.height and image.shape[1] > self.height:   
+                offset_height = (image.shape[0] - self.height) // 2
+                offset_width = (image.shape[1] - self.width) // 2 
+                image = tf.image.crop_to_bounding_box(image, offset_height, offset_width, self.height, self.width)
+    
+                if image.shape == (self.width, self.height, 3):
+                    preprocessed_images.append(image)
+                    labels.append(self._getLabel(imageName))
         print(f"MyUtils.py - Number of images: {len(preprocessed_images)}")
         dataset = tf.data.Dataset.from_tensor_slices((preprocessed_images, labels))
         dataset = dataset.batch(self.batch_size, drop_remainder=True)
