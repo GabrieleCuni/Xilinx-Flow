@@ -60,8 +60,8 @@ def makeTfRecord(output_filename, dataset, imageSize):
     count = 0
     with tf.io.TFRecordWriter(output_filename) as writer:
         for x,y in dataset:
-            if count == 0:
-                print(x.dtype)
+            # if count == 0:
+            #     print(x.dtype)
             count += 1
             
             label_features = tf.train.Feature(int64_list=tf.train.Int64List(value=[int(y)]))
@@ -84,10 +84,16 @@ def main():
 
     parser = argparse.ArgumentParser()	
     parser.add_argument("-s", "--imageSize", type=int, default=224, choices=imageSizeChoices, help="Default: 224")
-    parser.add_argument("-o", "--output", type=str, default="dataset.tfrecord")
-    parser.add_argument("--quantSize", type=int, default=1024)
-    parser.add_argument("--validationSize", type=int, default=4096)
+    parser.add_argument("--quantSize", type=int, default=4096, help="Default: 4096")
+    parser.add_argument("--validationSize", type=int, default=4096, help="Default: 4096")
     args = parser.parse_args()
+
+    print("************************************")
+    print("INPUT PARAMETERS:")
+    print(f"\tImage Size: {args.imageSize}")
+    print(f"\tValidation dataset size: {args.validationSize}")
+    print(f"\tQuantization dataset size: {args.quantSize}")
+    print("************************************")
 
     quantDataset, validationDataset = getDatasetWithKeras(args.imageSize, args.quantSize, args.validationSize)
 
