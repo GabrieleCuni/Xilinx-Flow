@@ -1,11 +1,7 @@
 import os 
 import argparse
-from random import seed
 import time
-import sys
 
-import numpy as np
-from myUtils import DatasetGenerator
 import tensorflow as tf
 from tensorflow_model_optimization.quantization.keras import vitis_quantize
 
@@ -81,16 +77,6 @@ def validation(alpha, imageSize):
 
     
 def validateOriginal(model, imageSize):
-    # i = tf.keras.layers.Input([None, None, 3], dtype = tf.uint8)
-    # x = tf.cast(i, tf.float32)
-    # x = tf.keras.applications.mobilenet.preprocess_input(x)
-    # core = tf.keras.applications.MobileNet(alpha=alpha, input_shape=(imageSize,imageSize,3))
-    # x = core(x)
-    # model = tf.keras.Model(inputs=[i], outputs=[x])
-
-    # datasetGenerator = DatasetGenerator(batch_size=32, startImageNumber=start, stopImageNumber=stop, width=imageSize, height=imageSize)
-    # batchedDataset = datasetGenerator.make_dataset_without_preprocessing()
-
     batchedDataset = getTFdataset(imageSize, "validation")
 
     model.compile(	
@@ -128,18 +114,9 @@ def main():
     imageSizeChoices = [224, 192, 160, 128]
     dpuChoices = ["B4096", "B3136", "B2304", "B1600", "B1152", "B1024", "B800", "B512"]
     tfModelsPath = os.path.join("tf_models")
-    # preprocessValDataPath = os.path.join("tf2_preprocessDatasets", "validationDatasets")
-    # preprocessQuantDataPath = os.path.join("tf2_preprocessDatasets", "quantizationDatasets")
 
     if not os.path.exists(tfModelsPath):
-        os.mkdir(tfModelsPath)
-
-    # if not os.path.exists(preprocessValDataPath):
-    #     os.makedirs(preprocessValDataPath)
-
-    # if not os.path.exists(preprocessQuantDataPath):
-    #     os.makedirs(preprocessQuantDataPath)
-    
+        os.mkdir(tfModelsPath)    
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-a", "--alpha", type=float, default=1.0, choices=alphaChoices, help="Default: 1.0")	
@@ -163,22 +140,21 @@ def main():
     print(f"\tExecute compilation: {args.compile}")
     print("************************************")
 
-    model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))
-
-    # modelPath = os.path.join(tfModelsPath, f"tf2_mobilenet_v1_{args.alpha}_{args.imageSize}")
-    # if not os.path.exists(modelPath):
-    #     model.save(modelPath)
-    #     model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))
-    # else:
-    #     model = tf.keras.models.load_model(modelPath, compile=False)
+    # model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))
 
     if args.verbose:
+        if model is None:
+            model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))
         print(model.summary())
 
     if args.validateOriginal:
+        if model is None:
+            model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))
         validateOriginal(model, args.imageSize)
 
-    if args.quantize:        
+    if args.quantize:     
+        if model is None:
+            model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))   
         quantization(model, args.alpha, args.imageSize)
 
     if args.validate:
