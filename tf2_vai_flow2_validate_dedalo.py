@@ -19,7 +19,7 @@ def getTFdataset(imageSize):
                 label_mode='int',
                 class_names=None,
                 color_mode='rgb',
-                batch_size=None,
+                batch_size=32,
                 image_size=(imageSize, imageSize),
                 shuffle=True,
                 seed=42,
