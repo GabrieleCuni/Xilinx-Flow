@@ -4,6 +4,34 @@ import time
 import os
 import tensorflow as tf
 
+def getTotalDataset(imageSize):
+    t0 = time.time()
+    print("\nStart make total dataset with Keras")
+
+    path = os.path.join("calibration_images", "val")    
+
+    batchDataset = tf.keras.utils.image_dataset_from_directory(
+                    path,
+                    labels='inferred',
+                    label_mode='int',
+                    class_names=None,
+                    color_mode='rgb',
+                    batch_size=None,
+                    image_size=(imageSize, imageSize),
+                    shuffle=True,
+                    seed=42,
+                    validation_split=None,
+                    subset=None,
+                    interpolation='bilinear',
+                    follow_links=False,
+                    crop_to_aspect_ratio=False
+                )
+
+    t1 = time.time()
+    print(f"Stop make total dataset with Keras. Time: {t1-t0}")
+
+    return batchDataset
+
 
 def getDatasetWithKeras(imageSize, quantSize, validationSize):
     t0 = time.time()
@@ -86,6 +114,7 @@ def main():
     parser.add_argument("-s", "--imageSize", type=int, default=224, choices=imageSizeChoices, help="Default: 224")
     parser.add_argument("--quantSize", type=int, default=4096, help="Default: 4096")
     parser.add_argument("--validationSize", type=int, default=4096, help="Default: 4096")
+    parser.add_argument("-t", "--total", action='store_true', help="Store all the dataset")
     args = parser.parse_args()
 
     print("************************************")
@@ -95,18 +124,25 @@ def main():
     print(f"\tQuantization dataset size: {args.quantSize}")
     print("************************************")
 
-    quantDataset, validationDataset = getDatasetWithKeras(args.imageSize, args.quantSize, args.validationSize)
-
     datasetPath = os.path.join("tf2_datasets")
 
     if not os.path.exists(datasetPath):
         os.makedirs(datasetPath)
 
-    path = os.path.join(datasetPath, f"quantization_{args.imageSize}.tfrecord")
-    makeTfRecord(path, quantDataset, args.imageSize)
+    if args.total is False:
+        quantDataset, validationDataset = getDatasetWithKeras(args.imageSize, args.quantSize, args.validationSize)       
 
-    path = os.path.join(datasetPath, f"validation_{args.imageSize}.tfrecord")
-    makeTfRecord(path, validationDataset, args.imageSize)
+        path = os.path.join(datasetPath, f"quantization_{args.imageSize}.tfrecord")
+        makeTfRecord(path, quantDataset, args.imageSize)
+
+        path = os.path.join(datasetPath, f"validation_{args.imageSize}.tfrecord")
+        makeTfRecord(path, validationDataset, args.imageSize)
+    else:
+        path = os.path.join("/", "media", "gabriele", "Gabriele Hard Disk", f"totalDataset_{args.imageSize}.tfrecord")
+
+        dataset = getTotalDataset(args.imageSize)
+        makeTfRecord(path, dataset, args.imageSize)
+
 
 if __name__ == "__main__":
     main()
