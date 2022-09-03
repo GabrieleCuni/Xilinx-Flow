@@ -138,7 +138,8 @@ def main():
         path = os.path.join(datasetPath, f"validation_{args.imageSize}.tfrecord")
         makeTfRecord(path, validationDataset, args.imageSize)
     else:
-        path = os.path.join("/", "media", "gabriele", "Gabriele Hard Disk", f"totalDataset_{args.imageSize}.tfrecord")
+        # path = os.path.join("/", "media", "gabriele", "Gabriele Hard Disk", f"totalDataset_{args.imageSize}.tfrecord")
+        path = os.path.join(datasetPath, f"validation_{args.imageSize}.tfrecord")
 
         dataset = getTotalDataset(args.imageSize)
         makeTfRecord(path, dataset, args.imageSize)

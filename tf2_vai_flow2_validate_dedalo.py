@@ -3,8 +3,7 @@ import argparse
 import time
 
 import tensorflow as tf
-# from tensorflow_model_optimization.quantization.keras import vitis_quantize
-import tensorflow_model_optimization as tfmot
+from tensorflow_model_optimization.quantization.keras import vitis_quantize
 
 """
 ./docker_run.sh xilinx/vitis-ai:1.3.411
@@ -41,9 +40,7 @@ def validation(alpha, imageSize):
 
     print("Start Validation of the quantized model")
     t0 = time.time()
-    
-
-    with tfmot.quantization.keras.quantize_scope():
+    with vitis_quantize.quantize_scope():
         modelPath = os.path.join("tf2_vai_quant_models",f"quantized_mobilenet_{alpha}_{imageSize}.h5")
         quantized_model = tf.keras.models.load_model(modelPath, compile=False)
 
