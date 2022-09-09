@@ -20,10 +20,10 @@ def plot_pareto_frontier(title, Xs, Ys, labels, yLabel, xLabel, maxX=True, maxY=
     pareto_front = [sorted_list[0]]
     for pair in sorted_list[1:]:
         if maxY:
-            if pair[1] >= pareto_front[-1][1]:
+            if pair[1] > pareto_front[-1][1]: # before was >=
                 pareto_front.append(pair)
         else:
-            if pair[1] <= pareto_front[-1][1]:
+            if pair[1] < pareto_front[-1][1]: # before was <=
                 pareto_front.append(pair)
     
     '''Plotting process'''
@@ -37,31 +37,81 @@ def plot_pareto_frontier(title, Xs, Ys, labels, yLabel, xLabel, maxX=True, maxY=
     plt.plot(pf_X, pf_Y)
     for x,y,label in zip(pf_X, pf_Y, pf_labels):
         plt.text(x, y, label)
-    plt.xlabel("FPS")
+    plt.xlabel(xLabel)
     plt.ylabel(yLabel)
     plt.title(title)
     plt.grid()
     plt.savefig(os.path.join(plotPath, title) + ".png")
     plt.show()
 
-# def plotLUTvsAccuracy(dputList, latencyData, accuracyData, lutData):
+def plotLatencyVsAccuracyAllModels(dpuList, latencyData, accuracyData, tot=False):
+    columnsList = ["224","192","160","128"]
+    indexList = ["1.0","0.75","0.5","0.25"]
+    Xs = []
+    Ys = []
+    labels = []
+    for dpu in dpuList:
+        for alpha in indexList:
+            for imageSize in columnsList:
+                latency = latencyData[dpu].loc[alpha, imageSize]
+                if not np.isnan(latency):
+                    Xs.append(getFPS(latency))
+                    Ys.append(accuracyData.loc[alpha, imageSize])
+                    labels.append((dpu, alpha, imageSize))
+    title = f" All models"
+    plot_pareto_frontier(title, Xs, Ys, labels, yLabel="Accuracy", xLabel="FPS")
+
+# def plotLatencyVsAccuracyAllModels(dpuList, latencyData, accuracyData, tot=False):
 #     columnsList = ["224","192","160","128"]
 #     indexList = ["1.0","0.75","0.5","0.25"]
-#     Xs = []
-#     Ys = []
-#     labels = []
-#     for dpu in dputList:
+#     maxX=True
+#     maxY=True
+
+#     b = bPlotSize
+#     a = b*(6.4/4.8)
+#     plt.figure(figsize=(a,b))
+    
+#     for dpu in dpuList:
+#         Xs = []
+#         Ys = []
+#         labels = []
 #         for alpha in indexList:
 #             for imageSize in columnsList:
 #                 latency = latencyData[dpu].loc[alpha, imageSize]
 #                 if not np.isnan(latency):
-#                     Xs.append(int(lutData[dpu]))
+#                     Xs.append(getFPS(latency))
 #                     Ys.append(accuracyData.loc[alpha, imageSize])
-#                     labels.append((alpha, imageSize))
-#     title = f"LUT vs Accuracy"
-#     plot_pareto_frontier(title, Xs, Ys, labels, yLabel="Accuracy", xLabel="LUT")
+#                     labels.append((dpu, alpha, imageSize))
 
-def plotLatencyVsAccuracy(dpu, latencyData, accuracyData):
+#         '''Pareto frontier selection process'''
+#         sorted_list = sorted([[Xs[i], Ys[i], labels[i]] for i in range(len(Xs))], reverse=maxY)
+#         pareto_front = [sorted_list[0]]
+#         for pair in sorted_list[1:]:
+#             if maxY:
+#                 if pair[1] >= pareto_front[-1][1]:
+#                     pareto_front.append(pair)
+#             else:
+#                 if pair[1] <= pareto_front[-1][1]:
+#                     pareto_front.append(pair)
+        
+#         '''Plotting process'''
+#         plt.scatter(Xs,Ys)
+#         pf_X = [pair[0] for pair in pareto_front]
+#         pf_Y = [pair[1] for pair in pareto_front]
+#         pf_labels = [pair[2] for pair in pareto_front]
+#         plt.plot(pf_X, pf_Y)
+#         for x,y,label in zip(pf_X, pf_Y, pf_labels):
+#             plt.text(x, y, label)
+
+#     plt.xlabel("FPS")
+#     plt.ylabel("Accuracy")
+#     plt.title("All models")
+#     plt.grid()
+#     plt.savefig(os.path.join(plotPath, "All models 2") + ".png")
+#     plt.show()
+
+
+def plotLatencyVsAccuracy(dpu, latencyData, accuracyData, tot=False):
     columnsList = ["224","192","160","128"]
     indexList = ["1.0","0.75","0.5","0.25"]
     Xs = []
@@ -74,39 +124,52 @@ def plotLatencyVsAccuracy(dpu, latencyData, accuracyData):
                 Xs.append(getFPS(latency))
                 Ys.append(accuracyData.loc[alpha, imageSize])
                 labels.append((alpha, imageSize))
-    plot_pareto_frontier(dpu, Xs, Ys, labels, yLabel="Accuracy", xLabel="FPS")
+    if tot:
+        title = dpu + " (preprocessing + inference time)"
+    else:
+        title = dpu + " (inference time)"
+    plot_pareto_frontier(title, Xs, Ys, labels, yLabel="Accuracy", xLabel="FPS")
 
-def plotLUTvsFPS(alpha, imageSize, dpuList,latencyData, lutData):
-    # print(int(lutData["B4096"]))
-    Xs = []
-    Ys = []
-    labels = []
-    for dpu in dpuList:
-        latency = latencyData[dpu].loc[str(alpha), str(imageSize)]
-        if not np.isnan(latency):
-            Xs.append(getFPS(latency))
-            Ys.append(int(lutData[dpu]))
-            labels.append(dpu)
-    title = f"mobilenet_v1_{alpha}_{imageSize}"
-    plot_pareto_frontier(title, Xs, Ys, labels, yLabel="LUT", xLabel="FPS")
+def plotLUTvsFPS(dpuList, latencyData, lutData):
+    plt.figure()
+    for alpha in [1.0, 0.75, 0.5, 0.25]:   
+        Ys = []
+        Xs = [] 
+        for dpu in dpuList:
+            latency = latencyData[dpu].loc[str(alpha), str(224)]
+            if not np.isnan(latency):
+                Ys.append(getFPS(latency))            
+            Xs.append(int(lutData[dpu]))
+        plt.plot(Xs, Ys, label=f"{alpha} 224", marker="o", linestyle="dotted")
+        
+    plt.legend()
+    plt.grid()
+    plt.ylabel("FPS")
+    plt.xlabel("Lookup Table")
+    plt.savefig(os.path.join(plotPath, "FPSvsLUT.png"))
+    plt.show()
 
-# def plotLUTvsFPS_alternative(alpha, imageSize, dpuList,latencyData, lutData):
-#     # print(int(lutData["B4096"]))
-#     columnsList = ["224","192","160","128"]
-#     indexList = ["1.0","0.75","0.5","0.25"]
-#     Xs = []
-#     Ys = []
-#     labels = []
-#     for dpu in dpuList:
-#         for alpha in indexList:
-#             for imageSize in columnsList:
-#                 latency = latencyData[dpu].loc[str(alpha), str(imageSize)]
-#                 if not np.isnan(latency):
-#                     Xs.append(getFPS(latency))
-#                     Ys.append(int(lutData[dpu]))
-#                     labels.append(dpu)
-#     title = f"boh"
-#     plot_pareto_frontier(title, Xs, Ys, labels, yLabel="LUT", xLabel="FPS")
+def plotBRAMvsFPS(dpuList, latencyData, BRAMData):
+    plt.figure()
+    for alpha in [1.0, 0.75, 0.5, 0.25]:   
+        Ys = []
+        Xs = [] 
+        for dpu in dpuList:
+            latency = latencyData[dpu].loc[str(alpha), str(224)]
+            if not np.isnan(latency):
+                Ys.append(getFPS(latency))            
+            Xs.append(int(BRAMData[dpu]))
+        plt.plot(Xs, Ys, label=f"{alpha} 224", marker="o", linestyle="dotted")
+        
+    plt.legend()
+    plt.grid()
+    plt.ylabel("FPS")
+    plt.xlabel("BRAM")
+    plt.savefig(os.path.join(plotPath, "FPSvsBRAM.png"))
+    plt.show()
+
+def plotBarChartAcc():
+    pass
 
 def readCsv(dataPath):
     with open(dataPath, newline="") as csvFile:
@@ -152,58 +215,65 @@ def getFPS(latency):
     return int(fps)
 
 def main():
-    nameList = ["B4096_latency.csv", "B3136_latency.csv", "B2304_latency.csv", "B1600_latency.csv", "B1152_latency.csv", "B1024_latency.csv", "B800_latency.csv", "B512_latency.csv", ]
+    # nameList = ["B4096_latency.csv", "B3136_latency.csv", "B2304_latency.csv", "B1600_latency.csv", "B1152_latency.csv", "B1024_latency.csv", "B800_latency.csv", "B512_latency.csv"]
+    nameListTot = ["B4096_tot_latency.csv", "B3136_tot_latency.csv", "B2304_tot_latency.csv", "B1600_tot_latency.csv", "B1152_tot_latency.csv", "B1024_tot_latency.csv", "B800_tot_latency.csv", "B512_tot_latency.csv"]
+
     dpuList = []
-    for name in nameList:
+    for name in nameListTot:
         dpuList.append(name.split("_")[0])
     accuracyFileName = "accuracyQuantizedModels.csv"
     lutFileName = "LUTperDPU.csv"
+    BRAMFileName = "BRAMperDPU.csv"
     global plotPath
     plotPath = os.path.join("PlotData", "Plots") 
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--imageSize", type=int, default=224)
-    parser.add_argument("-a", "--alpha", type=float, default=1.0)
-    parser.add_argument("-d", "--dpu", type=str, default="B4096")
-    parser.add_argument("-s", "--plotSize", type=float, default=5.2)
-    parser.add_argument("-l", "--lut", action='store_true')
+    parser.add_argument("--imageSize", type=int, default=224)
+    parser.add_argument("--alpha", type=float, default=1.0)
+    parser.add_argument("--dpu", type=str, default="B4096")
+    parser.add_argument("--plotSize", type=float, default=5.2)
+    parser.add_argument("--acc", action='store_true')
+    parser.add_argument("--lut", action='store_true')
+    parser.add_argument("--tot", action='store_true')
+    parser.add_argument("--bram", action='store_true')
+    parser.add_argument("--all", action="store_true")
+    parser.add_argument("--bar", action="store_true")    
     args = parser.parse_args()
 
     global bPlotSize
     bPlotSize = args.plotSize
 
-    if not args.lut:
-        print("************************************")
-        print("INPUT PARAMETERS:")
-        print(f"\tDPU: {args.dpu}")
-        print(f"\tPlot Accuracy vs FPS: {not args.lut}")
-        print(f"\tPlot LUT vs FPS: {args.lut}")
-        print("************************************")
+    print("************************************")
+    print("INPUT PARAMETERS:")
+    print(f"\tDPU: {args.dpu}")
+    print(f"\tPlot Accuracy vs FPS: {args.acc}")
+    print(f"\tPlot LUT vs FPS: {args.lut}")
+    print("************************************")
 
-        latencyData = getLatencyData(nameList)
-        accuracyData = getAccuracyData(accuracyFileName)
-        plotLatencyVsAccuracy(args.dpu, latencyData, accuracyData)
+    accuracyData = getAccuracyData(accuracyFileName)        
+    latencyData = getLatencyData(nameListTot)
+    lutData = getLutData(lutFileName)
+    BRAMData = getLutData(BRAMFileName)
 
-    if args.lut:
-        print("************************************")
-        print("INPUT PARAMETERS:")
-        print(f"\tAlpha: {args.alpha}")
-        print(f"\tImage Size: {args.imageSize}")
-        print(f"\tPlot Accuracy vs FPS: {not args.lut}")
-        print(f"\tPlot LUT vs FPS: {args.lut}")
-        print("************************************")
+    if args.all:
+        plotLatencyVsAccuracyAllModels(dpuList, latencyData, accuracyData, tot=False)
 
-        latencyData = getLatencyData(nameList)
-        lutData = getLutData(lutFileName)
-        accuracyData = getAccuracyData(accuracyFileName)
-        plotLUTvsFPS(args.alpha, args.imageSize, dpuList, latencyData, lutData) 
-        # plotLUTvsAccuracy(dpuList, latencyData, accuracyData, lutData)
+    if args.acc:
+        plotLatencyVsAccuracy(args.dpu, latencyData, accuracyData, tot=True)    
+
+    if args.lut:        
+        plotLUTvsFPS(dpuList, latencyData, lutData) 
+
+    if args.bram:
+        plotBRAMvsFPS(dpuList, latencyData, BRAMData) 
+
+    if args.bar:
+        plotBarChartAcc()
+
+    
 
     # printAllLatencyData(latencyData, nameList)
-
     # print(accuracyData)
-
-
     # print(accuracyData.loc["1.0", "224"])
     # fps = getFPS(latencyData["B4096"].loc["1.0","224"])
     # print(fps)
