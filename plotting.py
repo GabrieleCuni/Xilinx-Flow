@@ -124,10 +124,11 @@ def plotLatencyVsAccuracy(dpu, latencyData, accuracyData, tot=False):
                 Xs.append(getFPS(latency))
                 Ys.append(accuracyData.loc[alpha, imageSize])
                 labels.append((alpha, imageSize))
-    if tot:
-        title = dpu + " (preprocessing + inference time)"
-    else:
-        title = dpu + " (inference time)"
+    # if tot:
+    #     title = dpu + " (preprocessing + inference time)"
+    # else:
+    #     title = dpu + " (inference time)"
+    title = dpu
     plot_pareto_frontier(title, Xs, Ys, labels, yLabel="Accuracy", xLabel="FPS")
 
 def plotLUTvsFPS(dpuList, latencyData, lutData):
@@ -168,8 +169,31 @@ def plotBRAMvsFPS(dpuList, latencyData, BRAMData):
     plt.savefig(os.path.join(plotPath, "FPSvsBRAM.png"))
     plt.show()
 
-def plotBarChartAcc():
-    pass
+def plotBarChartAcc(accuracyGoogleData, accuracyData):
+    imageSizeList = ["224","192","160","128"]
+    alphaList = ["1.0","0.75","0.5","0.25"]
+
+    googleAccList = []
+    vaiAccList = []
+    columnsLabels = []
+    for alpha in alphaList:
+        for imageSize in imageSizeList:
+            googleAccList.append(accuracyGoogleData.loc[alpha, imageSize])
+            vaiAccList.append(accuracyData.loc[alpha, imageSize])
+            columnsLabels.append(f"({alpha},{imageSize})")
+    
+    x_axis = np.arange(len(columnsLabels))
+    b = bPlotSize
+    a = b*(6.4/4.8)
+    plt.figure(figsize=(a,b))
+    plt.bar(x_axis + 0.2, vaiAccList, width=0.4, label="Vitis AI PTQ") # tick_label=f"{alpha}, {imageSize}"
+    plt.bar(x_axis - 0.2, googleAccList, width=0.4, label="Google ATQ")
+    plt.xticks(x_axis, columnsLabels, fontweight='bold')
+    plt.legend(fontsize=20)
+    plt.title("Post-training quantization vs quantization aware-training", fontsize=20)
+    plt.ylabel("Accuracy", fontsize=20)
+    plt.savefig(os.path.join(plotPath, "VAIvsGOOGLE_accuracy.png"))
+    plt.show()
 
 def readCsv(dataPath):
     with open(dataPath, newline="") as csvFile:
@@ -222,15 +246,14 @@ def main():
     for name in nameListTot:
         dpuList.append(name.split("_")[0])
     accuracyFileName = "accuracyQuantizedModels.csv"
+    accuracyGoogleFileName = "accuracyGoogleQuantizedModels.csv"
     lutFileName = "LUTperDPU.csv"
     BRAMFileName = "BRAMperDPU.csv"
     global plotPath
     plotPath = os.path.join("PlotData", "Plots") 
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--imageSize", type=int, default=224)
-    parser.add_argument("--alpha", type=float, default=1.0)
-    parser.add_argument("--dpu", type=str, default="B4096")
+    parser.add_argument("--dpu", type=str, default="B4096", choices=dpuList)
     parser.add_argument("--plotSize", type=float, default=5.2)
     parser.add_argument("--acc", action='store_true')
     parser.add_argument("--lut", action='store_true')
@@ -251,15 +274,16 @@ def main():
     print("************************************")
 
     accuracyData = getAccuracyData(accuracyFileName)        
+    accuracyGoogleData = getAccuracyData(accuracyGoogleFileName)
     latencyData = getLatencyData(nameListTot)
     lutData = getLutData(lutFileName)
     BRAMData = getLutData(BRAMFileName)
 
     if args.all:
-        plotLatencyVsAccuracyAllModels(dpuList, latencyData, accuracyData, tot=False)
+        plotLatencyVsAccuracyAllModels(dpuList, latencyData, accuracyGoogleData, tot=False)
 
     if args.acc:
-        plotLatencyVsAccuracy(args.dpu, latencyData, accuracyData, tot=True)    
+        plotLatencyVsAccuracy(args.dpu, latencyData, accuracyGoogleData, tot=True)    
 
     if args.lut:        
         plotLUTvsFPS(dpuList, latencyData, lutData) 
@@ -268,7 +292,7 @@ def main():
         plotBRAMvsFPS(dpuList, latencyData, BRAMData) 
 
     if args.bar:
-        plotBarChartAcc()
+        plotBarChartAcc(accuracyGoogleData, accuracyData)
 
     
 

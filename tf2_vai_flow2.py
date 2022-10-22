@@ -140,7 +140,7 @@ def main():
     print(f"\tExecute compilation: {args.compile}")
     print("************************************")
 
-    # model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))
+    model = tf.keras.applications.MobileNet(alpha=args.alpha, input_shape=(args.imageSize,args.imageSize,3))
 
     if args.verbose:
         if model is None:
