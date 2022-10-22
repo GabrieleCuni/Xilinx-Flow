@@ -1,0 +1,21 @@
+Introduzione
+	Context
+	Challenges
+	Motivazioni
+	Contributions
+
+Background
+	ZINQ overview - PYNQ (cos'è PYNQ)
+		organizzazione della scheda 
+	
+	VITIS AI overview
+		flow di vitis e librerie
+
+Assessment
+	DPU architecture (LUT, BRAM, DSP, …)
+	ConvNet width multiplier
+	ConvNet Input resolution scaling
+
+Experimental Results:
+	Results, plots, etc.
+	Rules of thumb

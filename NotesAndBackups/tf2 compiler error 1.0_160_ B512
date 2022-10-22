@@ -1,0 +1,34 @@
+(vitis-ai-tensorflow2) Vitis-AI /workspace/ThesisData > python tf2_vai_flow2.py --compile --dpu B512 --alpha 1.0 --imageSize 160
+2022-08-28 01:57:25.949603: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib
+2022-08-28 01:57:25.949637: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+************************************
+INPUT PARAMETERS:
+        model: mobilenet_v1_1.0_160
+        DPU: B512
+        Verbose: False
+        Execute original model validation: False
+        Execute quantization: False
+        Execute quantized model validation: False
+        Execute compilation: True
+************************************
+/opt/vitis_ai/conda/envs/vitis-ai-tensorflow2/lib/python3.7/site-packages/xnnc/translator/tensorflow_translator.py:1752: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  value = param.get(group).get(ds).value
+[INFO] parse raw model     :100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 66/66 [00:00<00:00, 7189.30it/s]                
+[INFO] infer shape (NHWC)  :100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 101/101 [00:00<00:00, 6008.35it/s]              
+[INFO] generate xmodel     :100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 101/101 [00:00<00:00, 961.59it/s]               
+[UNILOG][INFO] The compiler log will be dumped at "/tmp/vitis-ai-user/log/xcompiler-20220828-015729-159"
+[UNILOG][INFO] Compile mode: dpu
+[UNILOG][INFO] Debug mode: function
+[UNILOG][INFO] Target architecture: DPUCZDX8G_CUSTOMIZED
+[UNILOG][INFO] Graph name: mobilenet_1.00_160, with op num: 213
+[UNILOG][INFO] Begin to compile...
+[UNILOG][FATAL][XCOM_TILING_FAIL][XCompiler occurs error when tiling. Please contact us.] 
+*** Check failure stack trace: ***
+Aborted (core dumped)
+[INFO] Namespace(inputs_shape=None, layout='NHWC', model_files=['tf2_vai_quant_models/quantized_mobilenet_1.0_160.h5'], model_type='tensorflow2', out_filename='tf2_vai_compiled_models/B512/tf2_mobilenet_v1_1.0_160_B512/tf2mobilenet_v1_1.0_160_B512_org.xmodel', proto=None)
+[INFO] tensorflow2 model: tf2_vai_quant_models/quantized_mobilenet_1.0_160.h5
+[OPT] No optimization method available for xir-level optimization.
+[INFO] generate xmodel: /workspace/ThesisData/tf2_vai_compiled_models/B512/tf2_mobilenet_v1_1.0_160_B512/tf2mobilenet_v1_1.0_160_B512_org.xmodel
+**************************************************
+* VITIS_AI Compilation - Xilinx Inc.
+**************************************************
